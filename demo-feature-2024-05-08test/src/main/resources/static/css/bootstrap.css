@@ -6373,6 +6373,12 @@ a.close.disabled {
   transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
 }
 
+.carousel-item img {
+  width: 100%; /* 이미지의 너비를 부모 요소에 맞게 설정합니다. */
+  height: auto; /* 이미지의 높이를 자동으로 조정합니다. */
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .carousel-item {
     transition: none;
