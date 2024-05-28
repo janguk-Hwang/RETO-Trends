@@ -197,8 +197,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<String> apiResponseX(String query, String year, String month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age) {
-        String clientId = "yeRsNjkDl0PmHo3i09r1"; // 애플리케이션 클라이언트 아이디
-        String clientSecret = "iqRygcj9AF"; // 애플리케이션 클라이언트 시크릿
+        String clientId = "Dt79jDvgaAHmvElS4P3X"; // 애플리케이션 클라이언트 아이디
+        String clientSecret = "vuU44chWP3"; // 애플리케이션 클라이언트 시크릿
 
         String apiUrl = "https://openapi.naver.com/v1/datalab/search";
 
@@ -248,8 +248,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<String> apiResponseY(String query, String year, String month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age) {
-        String clientId = "yeRsNjkDl0PmHo3i09r1"; // 애플리케이션 클라이언트 아이디
-        String clientSecret = "iqRygcj9AF"; // 애플리케이션 클라이언트 시크릿
+        String clientId = "Dt79jDvgaAHmvElS4P3X"; // 애플리케이션 클라이언트 아이디
+        String clientSecret = "vuU44chWP3"; // 애플리케이션 클라이언트 시크릿
 
         String apiUrl = "https://openapi.naver.com/v1/datalab/search";
 
