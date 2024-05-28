@@ -112,6 +112,30 @@
                         }
                     }
                 },
+                title: {
+                    text: '비교군1'
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                toolbox: {
+                    feature: {
+                        saveAsImage: { show: true },
+                        dataZoom: { show: true },
+                        restore: { show: true },
+                        magicType: { type: ['line', 'bar', 'stack', 'tiled'] }
+                    }
+                },
                 grid: {
                     left: '1%',
                     right: '4%',
@@ -136,6 +160,7 @@
                         type: type,
                         color: '#4C8DF6'
                     },
+
                     {
                         name: '[[${query2}]]',
                         data: seriesData2,
@@ -225,6 +250,30 @@
                         } else if (point[0]>510){
                             return [point[0]-x, point[1] - y];
                         }
+                    }
+                },
+                title: {
+                  text: '비교군2'
+                },
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                toolbox: {
+                    feature: {
+                        saveAsImage: { show: true },
+                        dataZoom: { show: true },
+                        restore: { show: true },
+                        magicType: { type: ['line', 'bar', 'stack', 'tiled'] }
                     }
                 },
                 grid: {
@@ -789,7 +838,6 @@
                     <button class="custom-btn btn-7" id="drawLine" type="button" value="line">Line Chart</button>
                     <button class="custom-btn btn-7" id="drawBar" type="button" value="bar">Bar Chart</button>
                     <button class="custom-btn btn-7" id="scatter"  type="button" value="scatter">Scatter Chart</button>
-                    <button class="custom-btn btn-7" type="button" onclick="window.location.href='/index_login_success'">홈으로</button>
                     <input type="hidden" name="url" id="urlInput" value="">
                     <script th:inline="javascript">
                         if (pageUrl()!="http://localhost:8080/index_result"&&pageUrl()!=[[${url1}]]&&pageUrl()!=[[${url2}]]&&pageUrl()!=[[${url3}]]&&pageUrl()!=[[${url4}]]) {
@@ -809,6 +857,7 @@
                             }
                         }
                     </script>
+                    <button class="custom-btn btn-7" type="button" onclick="window.location.href='/index_login_success'">홈으로</button>
                     <button class="custom-btn btn-7" type="submit">즐겨찾기 추가</button>
                     <button class="custom-btn btn-7" type="button" onclick="window.location.href='/favorite_url'">즐겨찾기 목록</button>
                 </div>
@@ -816,7 +865,7 @@
         </div>
         <div class="item5">
             <div class="card card-4" id="chart1"></div>
-            &nbsp&nbsp&nbsp
+            &nbsp&nbsp&nbsp&nbsp
             <div class="card card-4" id="chart2"></div>
         </div>
     </div>
@@ -867,8 +916,7 @@
                         Info
                     </h4>
                     <p>
-                        necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words,
-                        <br>combined with a handful
+                        Our search trend website identifies real-time user interests and provides the latest trends. Quickly see what topics and search terms are trending worldwide.
                     </p>
                 </div>
             </div>

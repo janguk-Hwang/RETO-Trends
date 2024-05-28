@@ -63,11 +63,11 @@ public class MemberController {
     @GetMapping("/favorite_url")
     public String favorite_url( Model model,
                                 @RequestParam(name = "url", required = false, defaultValue = "") String url,
-                                Principal principal) throws JSONException  {
+                                Principal principal) throws JSONException {
         String userName = principal.getName();
         String favoriteURL = "";
 
-        if (!url.equals("")){
+        if (!url.equals(memberService.getDbFavriteURL(userName).get(0))&&!url.equals(memberService.getDbFavriteURL(userName).get(1))&&!url.equals(memberService.getDbFavriteURL(userName).get(2))&&!url.equals(memberService.getDbFavriteURL(userName).get(3))&&!url.equals(memberService.getDbFavriteURL(userName).get(4))){
             memberService.setDbFavoriteURL(url,userName);
         }
 
@@ -347,7 +347,6 @@ public class MemberController {
         boolean isTrue3 = true;
         boolean isTrue4 = true;
         boolean isTrue5 = true;
-        boolean isTrueAll = true;
 
         for (int i = 0; i < memberService.getDbFavriteURL(userName).size(); i++) {
             favoriteURL = memberService.getDbFavriteURL(userName).get(i);
@@ -635,6 +634,7 @@ public class MemberController {
 
         return "index_result";
     }
+
     @GetMapping("/")
     public String home() {
         return "index";

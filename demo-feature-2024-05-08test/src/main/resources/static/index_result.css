@@ -140,7 +140,7 @@ button:hover {
 
 #chart1 {
     width: 80%;
-    height: 400px;
+    height: 500px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -150,7 +150,7 @@ button:hover {
 }
 #chart2 {
     width: 80%;
-    height: 400px;
+    height: 500px;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 10px;
