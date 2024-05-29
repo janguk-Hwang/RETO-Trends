@@ -18,8 +18,12 @@ hr.hr-1 {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
+.item1 {
+    padding-top: 60px; /* 필요에 따라 값을 조정 */
+}
 .item1 h1 {
     font-weight: bold;
+    margin-bottom: 20px;
 }
 .item1 h1 span {
     color: #00bbf0;

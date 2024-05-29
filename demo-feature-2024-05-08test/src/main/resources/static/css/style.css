@@ -104,6 +104,7 @@ a:focus {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  z-index: 1000;
 }
 
 .hero_area .hero_bg_box {
