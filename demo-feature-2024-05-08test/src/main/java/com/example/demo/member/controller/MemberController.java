@@ -657,7 +657,7 @@ public class MemberController {
     public String home_service_success(Principal principal, Model model) {
         String username = principal.getName();
         model.addAttribute("username", username);
-        return "service_success";
+        return "Analysis_success";
     }
 
     @GetMapping("/team_success")
@@ -689,7 +689,7 @@ public class MemberController {
     @GetMapping("/service")
     public String home_service(Principal principal, Model model) {
 
-        return "service";
+        return "Analysis";
     }
 
     @GetMapping("/manual")
