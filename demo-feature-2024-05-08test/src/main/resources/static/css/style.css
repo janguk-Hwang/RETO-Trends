@@ -327,7 +327,7 @@ a:focus {
 .slider_section .detail-box .btn-box .btn1 {
   display: inline-block;
   padding: 10px 15px;
-  border: 2px solid #f2f2f2;
+  border: 3px solid #f2f2f2;
   border-radius: 100px; /* 기본 버튼의 모서리를 둥글게 설정 */
   color: #ffffff;
   -webkit-transition: all 0.3s;
@@ -465,7 +465,6 @@ a:focus {
   align-items: center;
   text-align: center;
   margin-top: 45px;
-  background-color: #f8f8f9;
   padding: 20px;
   border-radius: 5px;
 }
@@ -576,6 +575,7 @@ a:focus {
 }
 
 .why_section .box {
+  margin-top: 45px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -587,10 +587,6 @@ a:focus {
   -ms-flex-align: center;
   align-items: center;
   text-align: center;
-  margin-top: 45px;
-  background-color: #f8f8f9;
-  padding: 20px;
-  border-radius: 5px;
 }
 
 .why_section .box .img-box {

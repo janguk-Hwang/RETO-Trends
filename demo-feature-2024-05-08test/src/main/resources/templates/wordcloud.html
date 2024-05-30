@@ -94,8 +94,35 @@
             padding-left: 10px;
             background-color: rgb(233, 233, 233);
         }
-
-
+        h1 {
+            font-weight: bold;
+        }
+        h1 span {
+            color: #00bbf0;
+        }
+        .custom-btn {
+            display: inline-block;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #000000;
+            padding: 10px 20px;
+            background-color: #d8dbdf; /* 버튼의 기본 배경색 (회색) */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 둥근 모서리 */
+            cursor: pointer; /* 마우스 포인터 모양 변경 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            font-weight: bold; /* 폰트 굵기 조정 */
+            transition: background-color 0.3s, transform 0.3s; /* 배경색과 크기 변화 트랜지션 */
+            text-decoration: none;
+        }
+        .custom-btn:hover {
+            background-color: #b3b7bb; /* 조금 더 짙은 회색 */
+            transform: translateY(-2px);
+        }
+        .custom-btn:active {
+            background-color: #545b62; /* 조금 더 짙은 회색 */
+            transform: translateY(-2px);
+        }
     </style>
 
     <script>
@@ -194,7 +221,6 @@
                     // 2. anyChart 사용 => t : value
                     var chart = anychart.tagCloud(data);
 
-                    chart.title("My Word Cloud");
                     chart.container("container");
 
                     chart.hovered().fill("#8711c3");
@@ -234,15 +260,22 @@
 </div>
 
 <center>
+    <br><br>
+    <h1>
+        차트 <span>비교분석</span>
+    </h1>
+    <br>
+    <p>LETO Trends는 네이버 블로그를 크롤링하여 워드 클라우드 서비스를 제공하고 있습니다.</p>
+    <input type="text" placeholder="검색어 입력" name="" id="txt">
+    <!--<input type="button" value="검색" id="search">-->
+    <input type="button" class="custom-btn" id="search" value="검색">
     <div id="div">
-        <img src="images/wordcloudImg/search.jpg" id="img">
+        <img src="images/wordcloudImg/스크린샷 2024-05-30 133248.png" id="img">
         <div id="container" align="center"></div>
     </div>
-
-    <input type="text" name="" id="txt">
-    <!--<input type="button" value="검색" id="search">-->
-    <input type="button" class="w-btn-outline w-btn-red-outline" id="search" value="검색">
+    <br>
 </center>
+<br><br>
 
 <div th:insert="~{/fragments/bottomFragment :: bottomFragment}"></div>
 
