@@ -1,18 +1,24 @@
 package com.example.demo.member.controller;
 
+import com.example.demo.DataMining.NaverParsing;
 import com.example.demo.member.model.MemberInput;
 import com.example.demo.member.model.ResetPasswordInput;
 import com.example.demo.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -45,6 +51,56 @@ public class MemberController {
         //그리고 이메일을 보낸다
     }
 
+    @GetMapping("/wordcloud")
+    public String wordcloud(Principal principal,
+                            Model model){
+        String username = principal.getName();
+        model.addAttribute("username", username);
+
+        return "wordcloud";
+    }
+
+
+    @RequestMapping(value = "/wordCloud", method = RequestMethod.GET)
+    public void wordCloud(HttpServletResponse res, HttpServletRequest req,
+                          Principal principal,
+                          Model model) throws IOException {
+        String username = principal.getName();
+        model.addAttribute("username", username);
+
+        // 웹에서 get으로 요청할때 보내온 파라미터 중 word 파라미터를 가져옴
+        String word = req.getParameter("word");
+
+        // NaverParsing 클래스의 parsingData 를 실행하고 겨과를 HashMap 로 저장함
+        // 이때 파라미터로 웽에서 가져온 word 를 사용
+        HashMap<String, Integer> crawlerData = new NaverParsing().parsingData(word);
+
+        // 데이터 저장을 위한 json array
+        JSONArray jsonArray = new JSONArray();
+
+        for(String list : crawlerData.keySet()){
+            JSONObject informationObject = new JSONObject();
+            // JsonArray 에 저장하기 위해서 값을 하나씩 json 형태로 가져와서 x 에 key를 담고 , value  에는 value을 저장함
+            // 이때 anychart 의 경우 x 와 value 를 사용하지만
+            // JQcloud 의 경우 text 와 weight 를 사용한다.
+
+            // 이후 다시 array 에 담기
+            informationObject.put("x", list);
+            informationObject.put("value", crawlerData.get(list));
+
+            jsonArray.add(informationObject);
+        }
+
+        // 전달하는 값의 타입을 application/json;charset=utf-8 로 하고(한글을 정상적으로 출력하기 위함)
+        // printwriter 과 prrint 를 사용하여 값을 response 로 값을 전달함
+        // 이때 toJSONString 로 전당하는데 이는 추후 Jsonparsing 을 원활하게 하기 위해서
+        // pw 로 값을 전달하면 값이 response body 에 들어가서 보내짐
+        res.setContentType("application/json;charset=utf-8");
+        PrintWriter pw = res.getWriter();
+        pw.print(jsonArray.toJSONString());
+        //System.out.println(jsonArray.toJSONString());
+
+    }
 
     @GetMapping("/member/email-auth")
     public String emailAuth(Model model, HttpServletRequest request) {
