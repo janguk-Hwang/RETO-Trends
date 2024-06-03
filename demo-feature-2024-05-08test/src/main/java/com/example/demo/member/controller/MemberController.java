@@ -104,19 +104,27 @@ public class MemberController {
     @PostMapping("/changeName")
     public String changeNamePost(Principal principal,
                                  @RequestParam(name = "name", required = false, defaultValue = "") String name,
-                                 Model model){
+                                 Model model) {
         String username = principal.getName();
         String user_name = memberService.getName(username);
 
-        if (!name.equals("")){
-            memberService.changeName(name, username);
+        if (!name.equals("")) {
+            boolean success = memberService.changeName(name, username);
+            if (success) {
+                model.addAttribute("successMessage", "이름이 성공적으로 변경되었습니다!");
+                user_name = name; // 변경된 이름을 업데이트
+            } else {
+                model.addAttribute("errorMessage", "이름 변경에 실패했습니다.");
+            }
         }
-        System.out.println(name);
+
         model.addAttribute("username", username);
         model.addAttribute("name", user_name);
 
         return "changeName";
     }
+
+
 
     @GetMapping("/changePhone")
     public String changePhone(Principal principal,
@@ -131,12 +139,14 @@ public class MemberController {
     @PostMapping("/changePhone")
     public String changePhone(Principal principal,
                               @RequestParam(name = "phone", required = false, defaultValue = "") String phone,
-                              Model model){
+                              Model model) {
         String username = principal.getName();
         String rphone = memberService.getPhone(username);
 
-        if (!phone.equals("")){
+        if (!phone.equals("")) {
             memberService.changePhone(phone, username);
+            model.addAttribute("successMessage", "전화번호가 성공적으로 변경되었습니다!");
+            rphone = phone; // 변경된 전화번호를 업데이트
         }
         model.addAttribute("username", username);
         model.addAttribute("phone", rphone);
