@@ -4,6 +4,7 @@ import com.example.demo.admin.dto.MemberDto;
 import com.example.demo.admin.model.MemberParam;
 import com.example.demo.member.model.MemberInput;
 import com.example.demo.member.model.ResetPasswordInput;
+import com.example.demo.member.service.impl.ResultMaps;
 import org.json.JSONException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -36,17 +37,16 @@ public interface MemberService extends UserDetailsService {
 
     /*회원 상세 정보*/
     MemberDto detail(String userId);
-    List<String> apiResponseX(String query, String year, String  month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age);
-    List<String> apiResponseY(String query, String year, String  month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age);
-    Map<String, List<String>> calendarApiResponseX(String query1, String query2, String query3, String query4, String query5, String year, String  month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age) throws JSONException;
-
-    Map<String, List<Double>> calendarApiResponse(String query1, String query2, String query3, String query4, String query5, String year, String month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age) throws JSONException;
-
-    List<String> apiShoppingResponseX(String query, String param, String year, String month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age);
-    List<String> apiShoppingResponseY(String title, String param, String year, String month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age);
+    String NaverApiResponse(String query1, String query2, String query3, String query4, String query5, String year, String  month1, String day1, String year2, String month2, String day2, String timeunit, String coverage, String gender, String[] age) throws JSONException;
+    ResultMaps parseJson(String jsonString) throws JSONException;
     boolean setDbFavoriteURL(String url, String username);
-    ArrayList<String> getDbFavriteURL(String username);
+    ArrayList<String> getDbFavoriteURL(String username);
+    boolean setDbCalFavoriteURL(String url, String username);
+    ArrayList<String> getDbCalFavoriteURL(String username);
+
     ArrayList<String> extractUrl(String str);
+    ArrayList<String> extractCalUrl(String str);
+
     boolean setRemoveAllUrl(String username);
 
     boolean setRemoveUrl1(String username);
@@ -59,8 +59,22 @@ public interface MemberService extends UserDetailsService {
 
     boolean setRemoveUrl5(String username);
 
+
+    boolean setRemoveAllCalUrl(String username);
+
+    boolean setRemoveCalUrl1(String username);
+
+    boolean setRemoveCalUrl2(String username);
+
+    boolean setRemoveCalUrl3(String username);
+
+    boolean setRemoveCalUrl4(String username);
+
+    boolean setRemoveCalUrl5(String username);
+
     ArrayList<String> getAge1(String str);
     ArrayList<String> getAge2(String str);
+
     boolean changeName(String name, String username);
     boolean changePhone(String phone, String username);
 

@@ -150,7 +150,8 @@
                 legend: {
                     data: legendData,
                     textStyle: {
-                        color: '#B0B0B0'
+                        color: '#B0B0B0',
+                        fontWeight: 'bold'
                     }
                 },
                 xAxis: {
@@ -296,7 +297,8 @@
                 legend: {
                     data: legendData,
                     textStyle: {
-                        color: '#B0B0B0'
+                        color: '#B0B0B0',
+                        fontWeight: 'bold'
                     }
                 },
                 xAxis: {
@@ -584,28 +586,80 @@
                 <h1>
                     차트 <span>비교분석</span>
                 </h1>
-                <input type="text" placeholder="검색어1(필수)" name="query1" required/>
+                <input type="text" placeholder="검색어1(필수)" name="query1" id="query1" required/>
 
                 <input type="hidden" id="hidden1" placeholder="검색어2" name="query2"/>
-
                 <input type="hidden" id="hidden2" placeholder="검색어3" name="query3"/>
-
                 <input type="hidden" id="hidden3" placeholder="검색어4" name="query4"/>
-
                 <input type="hidden" id="hidden4" placeholder="검색어5" name="query5"/>
 
-                <button class="custom-btn btn-7" type="button" id="addSearchBox">검색어 추가</button>
+                <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">검색어 추가</button>
                 <script>
+                    // 입력란의 값이 변경될 때마다 호출되는 함수
+                    function checkInputs() {
+                        var form = document.getElementById('myForm');
+                        var queryInputs = form.querySelectorAll('input[type="text"]');
+                        var allFilled = true;
+
+                        // 모든 텍스트 입력란이 채워졌는지 확인
+                        queryInputs.forEach(function(input) {
+                            if (input.value.trim() === "") {
+                                allFilled = false;
+                            }
+                        });
+
+                        var addButton = document.getElementById('addSearchBox');
+                        // 모든 입력란이 채워졌다면 버튼을 보이게, 아니면 숨기기
+                        if (allFilled) {
+                            addButton.style.display = 'inline-block';
+                        } else {
+                            addButton.style.display = 'none';
+                        }
+                    }
+
+                    // 초기 상태에서 버튼을 숨김
+                    document.getElementById('addSearchBox').style.display = 'none';
+
+                    // 입력란의 값이 변경될 때마다 checkInputs 함수를 호출
+                    var textInputs = document.querySelectorAll('input[type="text"]');
+                    textInputs.forEach(function(input) {
+                        input.addEventListener('input', checkInputs);
+                    });
+
                     document.getElementById('addSearchBox').addEventListener('click', function() {
                         var form = document.getElementById('myForm');
-                        var hiddenInputs = form.querySelectorAll('input[type="hidden"]');
-                        for (var i = 0; i < hiddenInputs.length; i++) {
-                            if (hiddenInputs[i].type === 'hidden') {
-                                hiddenInputs[i].type = 'text';
-                                break; // 첫 번째 hidden 타입의 input 태그만 변경합니다.
+                        var queryInputs = form.querySelectorAll('input[type="text"]');
+                        var allFilled = true;
+
+                        // 모든 텍스트 입력란이 채워졌는지 확인
+                        queryInputs.forEach(function(input) {
+                            if (input.value.trim() === "") {
+                                allFilled = false;
                             }
+                        });
+
+                        if (allFilled) {
+                            var hiddenInputs = form.querySelectorAll('input[type="hidden"]');
+                            for (var i = 0; i < hiddenInputs.length; i++) {
+                                if (hiddenInputs[i].type === 'hidden') {
+                                    hiddenInputs[i].type = 'text';
+                                    break; // 첫 번째 hidden 타입의 input 태그만 변경합니다.
+                                }
+                            }
+                            // 새로 추가된 입력란에 이벤트 리스너 추가
+                            form.querySelectorAll('input[type="text"]').forEach(function(input) {
+                                input.addEventListener('input', checkInputs);
+                            });
+                        } else {
+                            alert("모든 검색어를 입력해 주세요.");
                         }
+
+                        // 입력란 상태 확인하여 버튼 상태 업데이트
+                        checkInputs();
                     });
+
+                    // 초기 입력란 상태 확인하여 버튼 상태 설정
+                    checkInputs();
                 </script>
             </div>
             <div class="item2">
