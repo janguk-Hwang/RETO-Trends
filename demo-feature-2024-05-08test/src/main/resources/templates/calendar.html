@@ -641,7 +641,6 @@
             body.setAttribute('data-theme', 'dark');
             icon.classList.remove("fa-toggle-off");
             icon.classList.add("fa-toggle-on");
-            chart.background().fill("#18233B");
         } else {
             body.classList.remove("dark-mode");
             body.setAttribute('data-theme', 'light');
@@ -751,6 +750,7 @@
 
         // set the color scale as the color scale of the chart
         chart.colorScale(customColorScale);
+        chart.background().fill("#18283B")
 
 // Heatmap 그리기
         chart.container("container");
