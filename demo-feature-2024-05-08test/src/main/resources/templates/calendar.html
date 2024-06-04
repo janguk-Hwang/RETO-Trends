@@ -98,11 +98,56 @@
             margin-right: 10px;
             font-size: 16px;
         }
+        .fixed-button {
+            position: fixed;
+            bottom: 20px; /* 화면 하단에서 20px 위 */
+            right: 20px; /* 화면 오른쪽에서 20px 왼쪽 */
+            padding: 10px 20px;
+            background-color: #6c757d; /* 버튼의 기본 배경색 (회색) */
+            color: #fff; /* 텍스트 색상 */
+            border: none; /* 테두리 제거 */
+            border-radius: 5px; /* 둥근 모서리 */
+            cursor: pointer; /* 마우스 포인터 모양 변경 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+            font-size: 16px; /* 폰트 크기 조정 */
+            font-weight: bold; /* 폰트 굵기 조정 */
+            transition: background-color 0.3s, transform 0.3s; /* 배경색과 크기 변화 트랜지션 */
+            z-index: 1000;
+        }
+
+        .fixed-button:hover {
+            background-color: #5a6268; /* 호버 시 배경색 (더 어두운 회색) */
+            transform: translateY(-2px); /* 호버 시 약간 위로 이동 */
+        }
+
+        .fixed-button:active {
+            background-color: #545b62; /* 클릭 시 배경색 (더 어두운 회색) */
+            transform: translateY(1px); /* 클릭 시 약간 아래로 이동 */
+        }
+
+        .fixed-button:focus {
+            outline: none; /* 포커스 시 기본 테두리 제거 */
+            box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.5); /* 포커스 시 테두리 그림자 */
+        }
+        body.dark-mode {
+            color: #f2f2f2;
+            background-color: #18283b;
+        }
         select {
             border: 2px solid #ccc;
             border-radius: 5px;
             margin-right: 10px;
             font-size: 16px;
+        }
+        #container {
+            width: 100%;
+            height: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        body.dark-mode #container {
+            background-color: #18283B; /* 다크 모드 배경색 */
+            color: #fff; /* 다크 모드 텍스트 색상 */
         }
     </style>
     <!-- bootstrap core css -->
@@ -123,6 +168,11 @@
     <link href="/css/responsive.css" rel="stylesheet" />
 
     <script>
+        function pageUrl() {
+            var sHref = decodeURI(location.href);
+            return sHref;
+        }
+
         window.onscroll = function() {
             var button = document.getElementById("fixedButton");
             var scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -546,6 +596,68 @@
         </form>
     </div>
 </section>
+<button id="dark-mode-toggle" class="fixed-button">
+    <i id="dark-mode-icon" class="fas fa-toggle-off"></i> Dark Mode
+</button>
+<script>
+    const darkModeKey = 'darkMode';
+
+    function toggleDarkMode() {
+        var icon = document.getElementById("dark-mode-icon");
+        var body = document.body;
+
+        if (body.classList.contains("dark-mode")) {
+            body.classList.remove("dark-mode");
+            body.setAttribute('data-theme', 'light');
+            icon.classList.remove("fa-toggle-on");
+            icon.classList.add("fa-toggle-off");
+            localStorage.setItem(darkModeKey, 'false');
+        } else {
+            body.classList.add("dark-mode");
+            body.setAttribute('data-theme', 'dark');
+            icon.classList.remove("fa-toggle-off");
+            icon.classList.add("fa-toggle-on");
+            localStorage.setItem(darkModeKey, 'true');
+        }
+
+        // 다크 모드와 라이트 모드에 따라 차트의 배경색 변경
+        var chartContainer = document.getElementById("container");
+        var chart = chartContainer.anychart;
+
+        if (body.classList.contains("dark-mode")) {
+            chart.background().fill("#18233B");
+        } else {
+            chart.background().fill("#FFFFFF"); // 라이트 모드일 때 기본 배경색으로 변경
+        }
+    }
+
+    function loadDarkMode() {
+        var isDarkMode = localStorage.getItem(darkModeKey) === 'true';
+        var icon = document.getElementById("dark-mode-icon");
+        var body = document.body;
+
+        if (isDarkMode) {
+            body.classList.add("dark-mode");
+            body.setAttribute('data-theme', 'dark');
+            icon.classList.remove("fa-toggle-off");
+            icon.classList.add("fa-toggle-on");
+            chart.background().fill("#18233B");
+        } else {
+            body.classList.remove("dark-mode");
+            body.setAttribute('data-theme', 'light');
+            icon.classList.remove("fa-toggle-on");
+            icon.classList.add("fa-toggle-off");
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        loadDarkMode();
+
+        // 다크 모드 토글 버튼에 이벤트 리스너 추가
+        document.getElementById("dark-mode-toggle").addEventListener("click", toggleDarkMode);
+    });
+
+</script>
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
     anychart.onDocumentReady(function() {

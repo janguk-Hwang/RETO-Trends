@@ -83,19 +83,19 @@
 
             let legendData = []; // 범례 데이터를 동적으로 저장할 배열
 
-            if ([[${query1}]] !== "") {
+            if ([[${query1}]] != null) {
                 legendData.push('[[${query1}]]');
             }
-            if ([[${query2}]]!="") {
+            if ([[${query2}]]!=null) {
                 legendData.push('[[${query2}]]');
             }
-            if ([[${query3}]]!="") {
+            if ([[${query3}]]!=null) {
                 legendData.push('[[${query3}]]');
             }
-            if ([[${query4}]]!="") {
+            if ([[${query4}]]!=null) {
                 legendData.push('[[${query4}]]');
             }
-            if ([[${query5}]]!="") {
+            if ([[${query5}]]!=null) {
                 legendData.push('[[${query5}]]');
             }
 
@@ -230,19 +230,19 @@
 
             let legendData = []; // 범례 데이터를 동적으로 저장할 배열
 
-            if ([[${query1}]] !== "") {
+            if ([[${query1}]] != null) {
                 legendData.push('[[${query1}]]');
             }
-            if ([[${query2}]]!="") {
+            if ([[${query2}]]!=null) {
                 legendData.push('[[${query2}]]');
             }
-            if ([[${query3}]]!="") {
+            if ([[${query3}]]!=null) {
                 legendData.push('[[${query3}]]');
             }
-            if ([[${query4}]]!="") {
+            if ([[${query4}]]!=null) {
                 legendData.push('[[${query4}]]');
             }
-            if ([[${query5}]]!="") {
+            if ([[${query5}]]!=null) {
                 legendData.push('[[${query5}]]');
             }
 
@@ -582,7 +582,7 @@
     <div class="grid-container">
         <form action="index_result" method="get" id="myForm">
             <div class="item1">
-                <br><br><br>
+                <br><br><br><br><br>
                 <h1>
                     차트 <span>비교분석</span>
                 </h1>
@@ -1026,7 +1026,7 @@
         document.addEventListener("DOMContentLoaded", loadDarkMode);
     </script>
 </section>
-<br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 <section class="info_section layout_padding2">
     <div class="container_1">
         <div class="row">
