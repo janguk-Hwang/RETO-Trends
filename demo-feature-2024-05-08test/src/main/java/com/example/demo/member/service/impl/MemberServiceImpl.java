@@ -66,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
         String email = parameter.getUserId();
         String subject = "demo 사이트 가입을 축하드립니다.";
         String text = "<p> demo 사이트 가입을 축하드립니다.</p> <p>아래 링크를 클릭하셔서 가입을 완료하세요.</p>"
-                + "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 가입완료 </a></div>";
+                + "<div><a target='_blank' href='http://210.110.32.117:8080/member/email-auth?id=" + uuid + "'> 가입완료 </a></div>";
 
         mailComponents.sendMail(email, subject, text);
 

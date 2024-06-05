@@ -679,62 +679,13 @@
 
         var data = [];
         let total = titles.length;
-        if (total == 5) {
+        // 데이터를 생성하는 부분
+        for (var t = total; t >= 1; t--) {
             for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
-                    if (i == 0) {
-                        data.push([years[j], titles[i], value5[j]]);
-                    } else if (i == 1) {
-                        data.push([years[j], titles[i], value4[j]]);
-                    } else if (i == 2) {
-                        data.push([years[j], titles[i], value3[j]]);
-                    } else if (i == 3) {
-                        data.push([years[j], titles[i], value2[j]]);
-                    } else if (i == 4) {
-                        data.push([years[j], titles[i], value1[j]]);
+                    if (i === (total - t)) {
+                        data.push([years[j], titles[i], eval('value'+t)[j].toFixed(2)]); // 숫자를 소수점 아래 4자리까지 제한하여 추가
                     }
-                }
-            }
-        } else if (total == 4) {
-            for (var i = 0; i < titles.length; i++) {
-                for (var j = 0; j < years.length; j++) {
-                    if (i == 0) {
-                        data.push([years[j], titles[i], value4[j]]);
-                    } else if (i == 1) {
-                        data.push([years[j], titles[i], value3[j]]);
-                    } else if (i == 2) {
-                        data.push([years[j], titles[i], value2[j]]);
-                    } else if (i == 3) {
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        } else if (total == 3) {
-            for (var i = 0; i < titles.length; i++) {
-                for (var j = 0; j < years.length; j++) {
-                    if (i == 0) {
-                        data.push([years[j], titles[i], value3[j]]);
-                    } else if (i == 1) {
-                        data.push([years[j], titles[i], value2[j]]);
-                    } else if (i == 2) {
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        } else if (total == 2) {
-            for (var i = 0; i < titles.length; i++) {
-                for (var j = 0; j < years.length; j++) {
-                    if (i == 0) {
-                        data.push([years[j], titles[i], value2[j]]);
-                    } else if (i == 1) {
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        } else if (total == 1) {
-            for (var i = 0; i < titles.length; i++) {
-                for (var j = 0; j < years.length; j++) {
-                    data.push([years[j], titles[i], value1[j]]);
                 }
             }
         }
@@ -743,12 +694,16 @@
         var chart = anychart.heatMap(dataSet);
 
         chart.title("Heatmap with Separate Lists");
-        chart.xAxis().title("Years");
-        chart.yAxis().title("Titles");
+        //chart.xAxis().title("Years");
+        //chart.yAxis().title("Titles");
 
         var customColorScale = anychart.scales.linearColor();
-        customColorScale.colors(["#ACE8D4", "#00726A"]);
+        customColorScale.colors(["#DEEBF7", "#4292C6", "#08306B"]);
         chart.colorScale(customColorScale);
+
+        //chart.labels().fontColor("#B0B0B0"); // 원하는 폰트 색상으로 변경
+        //chart.labels().fontWeight("bold");
+        chart.labels().enabled(false);
 
         chart.container("container");
         chart.draw();
