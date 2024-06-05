@@ -620,15 +620,7 @@
             localStorage.setItem(darkModeKey, 'true');
         }
 
-        // 다크 모드와 라이트 모드에 따라 차트의 배경색 변경
-        var chartContainer = document.getElementById("container");
-        var chart = chartContainer.anychart;
-
-        if (body.classList.contains("dark-mode")) {
-            chart.background().fill("#18233B");
-        } else {
-            chart.background().fill("#FFFFFF"); // 라이트 모드일 때 기본 배경색으로 변경
-        }
+        updateChartBackgroundColor();
     }
 
     function loadDarkMode() {
@@ -647,6 +639,23 @@
             icon.classList.remove("fa-toggle-on");
             icon.classList.add("fa-toggle-off");
         }
+
+        updateChartBackgroundColor();
+    }
+
+    function updateChartBackgroundColor() {
+        var body = document.body;
+        var chartContainer = document.getElementById("container");
+        var chart = chartContainer.anychart;
+
+        if (chart) {
+            if (body.classList.contains("dark-mode")) {
+                chart.background().fill("#18283B");
+            } else {
+                chart.background().fill("#FFFFFF"); // 라이트 모드일 때 기본 배경색으로 변경
+            }
+            chart.draw();
+        }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -655,108 +664,104 @@
         // 다크 모드 토글 버튼에 이벤트 리스너 추가
         document.getElementById("dark-mode-toggle").addEventListener("click", toggleDarkMode);
     });
-
 </script>
+
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
     anychart.onDocumentReady(function() {
         var titles = [[${title}]];
-// 연도 리스트
         var years = [[${years}]];
-// 값 리스트
         var value1 = [[${value1}]];
         var value2 = [[${value2}]];
         var value3 = [[${value3}]];
         var value4 = [[${value4}]];
         var value5 = [[${value5}]];
 
-// 데이터 형식에 맞춰 배열 생성
         var data = [];
         let total = titles.length;
-        if (total==5){
-            for (var i = 0; i<titles.length; i++){
+        if (total == 5) {
+            for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
-                    if (i==0){
+                    if (i == 0) {
                         data.push([years[j], titles[i], value5[j]]);
-                    }else if (i==1){
+                    } else if (i == 1) {
                         data.push([years[j], titles[i], value4[j]]);
-                    }else if (i==2){
+                    } else if (i == 2) {
                         data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==3){
+                    } else if (i == 3) {
                         data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==4){
+                    } else if (i == 4) {
                         data.push([years[j], titles[i], value1[j]]);
                     }
                 }
             }
-        }else if (total==4){
-            for (var i = 0; i<titles.length; i++){
+        } else if (total == 4) {
+            for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
-                    if (i==0){
+                    if (i == 0) {
                         data.push([years[j], titles[i], value4[j]]);
-                    }else if (i==1){
+                    } else if (i == 1) {
                         data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==2){
+                    } else if (i == 2) {
                         data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==3){
+                    } else if (i == 3) {
                         data.push([years[j], titles[i], value1[j]]);
                     }
                 }
             }
-        }else if (total==3){
-            for (var i = 0; i<titles.length; i++){
+        } else if (total == 3) {
+            for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
-                    if (i==0){
+                    if (i == 0) {
                         data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==1){
+                    } else if (i == 1) {
                         data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==2){
+                    } else if (i == 2) {
                         data.push([years[j], titles[i], value1[j]]);
                     }
                 }
             }
-        }else if (total==2){
-            for (var i = 0; i<titles.length; i++){
+        } else if (total == 2) {
+            for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
-                    if (i==0){
+                    if (i == 0) {
                         data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==1){
+                    } else if (i == 1) {
                         data.push([years[j], titles[i], value1[j]]);
                     }
                 }
             }
-        }else if (total==1){
-            for (var i = 0; i<titles.length; i++){
+        } else if (total == 1) {
+            for (var i = 0; i < titles.length; i++) {
                 for (var j = 0; j < years.length; j++) {
                     data.push([years[j], titles[i], value1[j]]);
                 }
             }
         }
 
-// 데이터 세트 생성
         var dataSet = anychart.data.set(data);
-
-// Heatmap 생성
         var chart = anychart.heatMap(dataSet);
 
-// Heatmap 설정
         chart.title("Heatmap with Separate Lists");
         chart.xAxis().title("Years");
         chart.yAxis().title("Titles");
 
-        // create and configure the color scale.
         var customColorScale = anychart.scales.linearColor();
         customColorScale.colors(["#ACE8D4", "#00726A"]);
-
-        // set the color scale as the color scale of the chart
         chart.colorScale(customColorScale);
 
-// Heatmap 그리기
         chart.container("container");
         chart.draw();
+
+        // chart instance를 전역 변수로 저장
+        document.getElementById("container").anychart = chart;
+
+        // 다크 모드 상태에 따른 배경색 업데이트
+        updateChartBackgroundColor();
     });
 </script>
 <div id="container"></div>
+
 
 <br><br><br><br><br>
 <section class="info_section layout_padding2">
