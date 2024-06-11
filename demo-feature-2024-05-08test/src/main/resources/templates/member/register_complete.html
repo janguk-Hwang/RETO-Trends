@@ -52,19 +52,21 @@
 <!-- service section -->
 
 <section class="service_section layout_padding">
-    <div class="service_content">
-        <h1>회원 가입 결과</h1>
+    <div class="service_content container heading_container heading_center">
+
         <br>
         <div th:if="${result}">
-            <h2>회원 가입 완료</h2>
-            <p>회원 가입이 완료되었습니다.</p>
+            <h2>회원 가입 성공</h2>
+            <p>회원 가입을 완료하려면 이메일에서 가입 완료 버튼을 눌러주세요.</p>
+            <br>
             <div>
                 <button type="button" id="SIGN IN" class="form_btn" onclick="window.location.href='/login'">로그인 화면으로</button>
             </div>
         </div>
         <div th:if="${result eq false}">
             <h2>회원 가입 실패</h2>
-            <p>이미 가입된 아이디(이메일)입니다.</p>
+            <p>이미 가입된 이메일 주소입니다.</p>
+            <br>
             <div>
                 <button type="button" class="form_btn" onclick="window.location.href='/member/register'">다시 시도</button>
             </div>

@@ -11,3 +11,8 @@ public class MemberInput {
     private String password;
     private String phone;
 }
+@Data
+public class MemberLogin {
+    private String userId;
+
+}
