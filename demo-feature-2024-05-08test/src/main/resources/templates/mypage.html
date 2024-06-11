@@ -42,9 +42,6 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            overflow: auto;
-            white-space: nowrap;
-            width: calc(100% - 40px);
         }
         .input-group i {
             width: 40px; /* 아이콘 칸의 너비를 고정합니다. */
@@ -88,11 +85,11 @@
                     </div>
                     <div class="input-group">
                         <i class="fas fa-phone" title="전화번호"></i>
-                        <span>&nbsp&nbsp<span th:text="${phone}"></span>&nbsp&nbsp<a href="changePhone">수정</a></span>
+                        <span>&nbsp&nbsp<span th:text="${phone}"></span></span><a href="changePhone" class="right-align">수정</a>&nbsp&nbsp&nbsp&nbsp
                     </div>
                     <div class="input-group">
                         <i class="fas fa-id-card" title="이름"></i>
-                        <span>&nbsp&nbsp<span th:text="${name}"></span>&nbsp&nbsp<a href="changeName">수정</a></span>
+                        <span>&nbsp&nbsp<span th:text="${name}"></span></span><a href="changeName" class="right-align">수정</a>&nbsp&nbsp&nbsp&nbsp
                     </div>
                     <div class="input-group">
                         <i class="fas fa-lock" title="비밀번호"></i>

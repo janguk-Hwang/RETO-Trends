@@ -2441,7 +2441,7 @@ textarea.form-control {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
+  width: 350px;
   margin: 0 auto;
   text-align: center;
 }
@@ -2462,6 +2462,17 @@ textarea.form-control {
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
+}
+
+.right-align {
+  margin-left: auto;
+  text-align: center;
+  align-content: center;
+}
+
+.center-align {
+  text-align: center;
+  align-content: center;
 }
 
 .input-group i {
