@@ -10,5 +10,6 @@
     <orderEntry type="library" name="anychart-heatmap" level="application" />
     <orderEntry type="library" name="anychart-tag-cloud" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" name="anychart-base" level="application" />
   </component>
 </module>

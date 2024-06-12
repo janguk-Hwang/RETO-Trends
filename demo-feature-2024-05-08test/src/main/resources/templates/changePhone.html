@@ -32,6 +32,36 @@
     <!-- responsive style -->
     <link href="/css/responsive.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector("form").addEventListener("submit", function(event) {
+                // 새 이름 입력 칸의 값을 가져옵니다.
+                const newPhone = document.querySelector("input[name='phone']").value;
+
+                // 기존 이름을 가져옵니다.
+                const oldPhone = document.querySelector("#oldPhone").innerText;
+
+                // 새 이름이 비어있는지 확인합니다.
+                if (newPhone.trim() === '') {
+                    // 새 이름이 비어있으면 제출을 막습니다.
+                    alert("새 전화번호를 입력해주세요.");
+                    event.preventDefault();
+                } else if (newPhone.trim() === oldPhone.trim()) {
+                    // 새 이름이 기존 이름과 같으면 제출을 막습니다.
+                    alert("새 전화번호가 기존 전화번호와 동일합니다.");
+                    event.preventDefault();
+                    document.querySelector("input[name='phone']").value = '';
+                } else {
+                    // 새 이름이 비어있지 않고 기존 이름과 다르면 성공 메시지를 띄웁니다.
+                    const successMessage = "전화번호가 성공적으로 변경되었습니다!";
+                    alert(successMessage);
+
+                    // 성공 메시지를 표시한 후에 페이지를 새로 고칩니다.
+                    location.reload();
+                }
+            });
+        });
+    </script>
     <style>
         input[type="text"] {
             font-size: 16px;
@@ -116,13 +146,13 @@
                     전화번호<span> 변경</span>
                 </h1>
                 <br>
-                <div th:text="${errorMessage}"></div>
-                <div th:if="${successMessage}" th:text="${successMessage}" id="successMessage"></div>
+                <div th:text="${errorMessage}" id="errorMessage" style="display: none;"></div>
+                <div th:text="${successMessage}" id="successMessage" style="display: none;"></div>
                 <form method="post" th:action="@{/changePhone}">
                     <div class="input-container-changeName">
                         <div class="input-group">
                             <i class="fas fa-user"></i>
-                            <span>&nbsp&nbsp 기존 전화번호 : &nbsp<span th:text="${phone}"></span>&nbsp&nbsp&nbsp</span>
+                            <span>&nbsp&nbsp 기존 전화번호 : &nbsp<span id="oldPhone" th:text="${phone}"></span>&nbsp&nbsp&nbsp</span>
                         </div>
                         <div class="input-group">
                             <i class="fas fa-phone"></i>
