@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="index_result.css">
     <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <style>
         html, body, #container {
             width: 100%;
@@ -336,7 +335,6 @@
             }
         });
     </script>
-
 </head>
 
 <body class="sub_page">
@@ -427,73 +425,49 @@
                     // 초기 입력란 상태 확인하여 버튼 상태 설정
                     checkInputs();
                 </script>
+                <script>
+                    document.getElementById('myForm').addEventListener('submit', function(event) {
+                        var startDate = new Date(document.getElementById('startDate').value);
+                        var endDate = new Date(document.getElementById('endDate').value);
+                        let today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        var tomorrow = new Date(today.setDate(today.getDate()+1));
+
+                        if ((endDate < startDate)&&(startDate > today || endDate > today)){
+                            event.preventDefault();
+                            alert("종료 날짜가 시작 날짜보다 과거일 수 없고 선택 날짜가 현재 날짜 보다 미래일 수 없습니다.");
+                        } else if (endDate < startDate) {
+                            event.preventDefault();
+                            alert("종료 날짜가 시작 날짜보다 과거일 수 없습니다.");
+                        } else if (startDate > tomorrow || endDate > tomorrow) {
+                            event.preventDefault();
+                            alert("선택 날짜가 현재 날짜 보다 미래일 수 없습니다.");
+                        }
+                    });
+                </script>
+                <script>
+                    function getCurrentDate() {
+                        const today = new Date();
+                        const year = today.getFullYear();
+                        const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+                        const day = String(today.getDate()).padStart(2, '0');
+                        return `${year}-${month}-${day}`;
+                    }
+
+                    // 페이지 로드 시 기본값 설정
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                        const startDateInput = document.getElementById('startDate');
+                        const endDateInput = document.getElementById('endDate');
+                        endDateInput.value = getCurrentDate();
+                        startDateInput.value = getCurrentDate();
+                    });
+                </script>
             </div>
             <div class="item2">
                 <br>
                 <strong class="title">기간</strong>
-                <label for="selectYear1"></label>
-                <select name="year" id="selectYear1">
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-            </select>
-                <label for="selectMonth1"></label>
-                <select name="month" id="selectMonth1">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-                <label for="selectDay1"></label>
-                <select name="day" id="selectDay1">
-                    <!-- 일 옵션은 JavaScript로 동적으로 채워집니다 -->
-                </select>
-                <small> 에서</small>
-                <label for="selectYear2"></label>
-                <select name="year2" id="selectYear2">
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-            </select>
-                <label for="selectMonth2"></label>
-                <select name="month2" id="selectMonth2">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-                <label for="selectDay2"></label>
-                <select name="day2" id="selectDay2">
-                    <!-- 일 옵션은 JavaScript로 동적으로 채워집니다 -->
-                </select><small> 까지</small>
+                <input type="date" id="startDate" name="date1" value="defaultDate()">~
+                <input type="date" id="endDate" name="date2">
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
                 <strong class="title">단위</strong>
                 <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">
@@ -624,7 +598,15 @@
             localStorage.setItem(darkModeKey, 'true');
         }
 
-        updateChartBackgroundColor();
+        // 다크 모드와 라이트 모드에 따라 차트의 배경색 변경
+        var chartContainer = document.getElementById("container");
+        var chart = chartContainer.anychart;
+
+        if (body.classList.contains("dark-mode")) {
+            chart.background().fill("#18233B");
+        } else {
+            chart.background().fill("#FFFFFF"); // 라이트 모드일 때 기본 배경색으로 변경
+        }
     }
 
     function loadDarkMode() {
@@ -643,23 +625,6 @@
             icon.classList.remove("fa-toggle-on");
             icon.classList.add("fa-toggle-off");
         }
-
-        updateChartBackgroundColor();
-    }
-
-    function updateChartBackgroundColor() {
-        var body = document.body;
-        var chartContainer = document.getElementById("container");
-        var chart = chartContainer.anychart;
-
-        if (chart) {
-            if (body.classList.contains("dark-mode")) {
-                chart.background().fill("#18283B");
-            } else {
-                chart.background().fill("#FFFFFF"); // 라이트 모드일 때 기본 배경색으로 변경
-            }
-            chart.draw();
-        }
     }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -668,89 +633,108 @@
         // 다크 모드 토글 버튼에 이벤트 리스너 추가
         document.getElementById("dark-mode-toggle").addEventListener("click", toggleDarkMode);
     });
-</script>
 
+</script>
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
-    document.addEventListener('DOMContentLoaded', function () {
+    anychart.onDocumentReady(function() {
         var titles = [[${title}]];
+// 연도 리스트
         var years = [[${years}]];
+// 값 리스트
         var value1 = [[${value1}]];
         var value2 = [[${value2}]];
         var value3 = [[${value3}]];
         var value4 = [[${value4}]];
         var value5 = [[${value5}]];
 
+// 데이터 형식에 맞춰 배열 생성
         var data = [];
         let total = titles.length;
-        // 데이터를 생성하는 부분
-        for (var t = total; t >= 1; t--) {
-            for (var i = 0; i < titles.length; i++) {
+        if (total==5){
+            for (var i = 0; i<titles.length; i++){
                 for (var j = 0; j < years.length; j++) {
-                    if (i === (total - t)) {
-                        data.push([years[j], titles[i], eval('value'+t)[j].toFixed(2)]); // 숫자를 소수점 아래 4자리까지 제한하여 추가
+                    if (i==0){
+                        data.push([years[j], titles[i], value5[j]]);
+                    }else if (i==1){
+                        data.push([years[j], titles[i], value4[j]]);
+                    }else if (i==2){
+                        data.push([years[j], titles[i], value3[j]]);
+                    }else if (i==3){
+                        data.push([years[j], titles[i], value2[j]]);
+                    }else if (i==4){
+                        data.push([years[j], titles[i], value1[j]]);
                     }
+                }
+            }
+        }else if (total==4){
+            for (var i = 0; i<titles.length; i++){
+                for (var j = 0; j < years.length; j++) {
+                    if (i==0){
+                        data.push([years[j], titles[i], value4[j]]);
+                    }else if (i==1){
+                        data.push([years[j], titles[i], value3[j]]);
+                    }else if (i==2){
+                        data.push([years[j], titles[i], value2[j]]);
+                    }else if (i==3){
+                        data.push([years[j], titles[i], value1[j]]);
+                    }
+                }
+            }
+        }else if (total==3){
+            for (var i = 0; i<titles.length; i++){
+                for (var j = 0; j < years.length; j++) {
+                    if (i==0){
+                        data.push([years[j], titles[i], value3[j]]);
+                    }else if (i==1){
+                        data.push([years[j], titles[i], value2[j]]);
+                    }else if (i==2){
+                        data.push([years[j], titles[i], value1[j]]);
+                    }
+                }
+            }
+        }else if (total==2){
+            for (var i = 0; i<titles.length; i++){
+                for (var j = 0; j < years.length; j++) {
+                    if (i==0){
+                        data.push([years[j], titles[i], value2[j]]);
+                    }else if (i==1){
+                        data.push([years[j], titles[i], value1[j]]);
+                    }
+                }
+            }
+        }else if (total==1){
+            for (var i = 0; i<titles.length; i++){
+                for (var j = 0; j < years.length; j++) {
+                    data.push([years[j], titles[i], value1[j]]);
                 }
             }
         }
 
-        // ECharts 인스턴스 초기화
-        var chart = echarts.init(document.getElementById('container'));
+// 데이터 세트 생성
+        var dataSet = anychart.data.set(data);
 
-        // ECharts 옵션 설정
-        var option = {
-            title: {
-                top: 30,
-                left: 'center',
-                text: 'Heatmap Calendar Example'
-            },
-            tooltip: {
-                position: 'top'
-            },
-            visualMap: {
-                min: 0,
-                max: 100,
-                type: 'piecewise',
-                orient: 'horizontal',
-                left: 'center',
-                top: 65
-            },
-            calendar: {
-                top: 120,
-                left: 30,
-                right: 30,
-                cellSize: ['auto', 20],
-                range: '2023',
-                itemStyle: {
-                    borderWidth: 0.5
-                },
-                yearLabel: { show: false }
-            },
-            series: [{
-                type: 'heatmap',
-                coordinateSystem: 'calendar',
-                data: data.map(item => [item[0], parseFloat(item[2])])
-            }]
-        };
+// Heatmap 생성
+        var chart = anychart.heatMap(dataSet);
 
-        // 옵션을 차트에 적용
-        chart.setOption(option);
+// Heatmap 설정
+        chart.title("Heatmap with Separate Lists");
+        chart.xAxis().title("Years");
+        chart.yAxis().title("Titles");
 
-        // 다크 모드 상태에 따른 배경색 업데이트 함수
-        function updateChartBackgroundColor() {
-            var isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var backgroundColor = isDarkMode ? '#333' : '#fff';
-            chart.setOption({
-                backgroundColor: backgroundColor
-            });
-        }
+        // create and configure the color scale.
+        var customColorScale = anychart.scales.linearColor();
+        customColorScale.colors(["#ACE8D4", "#00726A"]);
 
-        // 다크 모드 상태 변경 시 배경색 업데이트
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateChartBackgroundColor);
+        // set the color scale as the color scale of the chart
+        chart.colorScale(customColorScale);
+
+// Heatmap 그리기
+        chart.container("container");
+        chart.draw();
     });
 </script>
 <div id="container"></div>
-
 
 <br><br><br><br><br>
 <section class="info_section layout_padding2">
