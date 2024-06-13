@@ -435,13 +435,20 @@
 
                         if ((endDate < startDate)&&(startDate > today || endDate > today)){
                             event.preventDefault();
-                            alert("종료 날짜가 시작 날짜보다 과거일 수 없고 선택 날짜가 현재 날짜 보다 미래일 수 없습니다.");
+                            alert("종료 날짜는 시작 날짜보다 이전이 될 수 없고, 선택 날짜는 현재보다 미래가 될 수 없습니다.");
+                            window.location.reload();
                         } else if (endDate < startDate) {
                             event.preventDefault();
                             alert("종료 날짜가 시작 날짜보다 과거일 수 없습니다.");
+                            window.location.reload();
                         } else if (startDate > tomorrow || endDate > tomorrow) {
                             event.preventDefault();
                             alert("선택 날짜가 현재 날짜 보다 미래일 수 없습니다.");
+                            window.location.reload();
+                        } else if (startDate < new Date('2016-01-01') || endDate < new Date('2016-01-01')) {
+                            event.preventDefault();
+                            alert("2016년 이전의 날짜는 선택할 수 없습니다.");
+                            window.location.reload();
                         }
                     });
                 </script>
@@ -453,13 +460,54 @@
                         const day = String(today.getDate()).padStart(2, '0');
                         return `${year}-${month}-${day}`;
                     }
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const searchTerm1 = urlParams.get('query1');
+                        const searchTerm2 = urlParams.get('query2');
+                        const searchTerm3 = urlParams.get('query3');
+                        const searchTerm4 = urlParams.get('query4');
+                        const searchTerm5 = urlParams.get('query5');
+
+                        const searchInput1 = document.getElementById('query1');
+                        const searchInput2 = document.getElementById('hidden1');
+                        const searchInput3 = document.getElementById('hidden2');
+                        const searchInput4 = document.getElementById('hidden3');
+                        const searchInput5 = document.getElementById('hidden4');
+
+                        if (searchTerm1) {
+                            searchInput1.value = searchTerm1;
+                        }
+                        if (searchTerm2) {
+                            searchInput2.value = searchTerm2;
+                            searchInput2.type = "text";
+                        }
+                        if (searchTerm3) {
+                            searchInput3.value = searchTerm3;
+                            searchInput3.type = "text";
+                        }
+                        if (searchTerm4) {
+                            searchInput4.value = searchTerm4;
+                            searchInput4.type = "text";
+                        }
+                        if (searchTerm5) {
+                            searchInput5.value = searchTerm5;
+                            searchInput5.type = "text";
+                        }
+                    });
 
                     // 페이지 로드 시 기본값 설정
                     document.addEventListener('DOMContentLoaded', (event) => {
+                        const today = new Date();
+                        const currentYear1 = today.getFullYear()-1;
+                        const currentYear2 = today.getFullYear();
+                        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+                        const currentDay = String(today.getDate()).padStart(2, '0');
+
                         const startDateInput = document.getElementById('startDate');
                         const endDateInput = document.getElementById('endDate');
-                        endDateInput.value = getCurrentDate();
-                        startDateInput.value = getCurrentDate();
+
+                        endDateInput.value = `${currentYear2}-${currentMonth}-${currentDay}`;
+                        startDateInput.value = `${currentYear1}-${currentMonth}-${currentDay}`;
                     });
                 </script>
             </div>
