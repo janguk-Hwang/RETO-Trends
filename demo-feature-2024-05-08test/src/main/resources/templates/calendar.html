@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="index_result.css">
     <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <style>
         html, body, #container {
             width: 100%;
@@ -671,7 +672,7 @@
 
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
-    anychart.onDocumentReady(function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var titles = [[${title}]];
         var years = [[${years}]];
         var value1 = [[${value1}]];
@@ -693,29 +694,59 @@
             }
         }
 
-        var dataSet = anychart.data.set(data);
-        var chart = anychart.heatMap(dataSet);
+        // ECharts 인스턴스 초기화
+        var chart = echarts.init(document.getElementById('container'));
 
-        chart.title("Heatmap with Separate Lists");
-        //chart.xAxis().title("Years");
-        //chart.yAxis().title("Titles");
+        // ECharts 옵션 설정
+        var option = {
+            title: {
+                top: 30,
+                left: 'center',
+                text: 'Heatmap Calendar Example'
+            },
+            tooltip: {
+                position: 'top'
+            },
+            visualMap: {
+                min: 0,
+                max: 100,
+                type: 'piecewise',
+                orient: 'horizontal',
+                left: 'center',
+                top: 65
+            },
+            calendar: {
+                top: 120,
+                left: 30,
+                right: 30,
+                cellSize: ['auto', 20],
+                range: '2023',
+                itemStyle: {
+                    borderWidth: 0.5
+                },
+                yearLabel: { show: false }
+            },
+            series: [{
+                type: 'heatmap',
+                coordinateSystem: 'calendar',
+                data: data.map(item => [item[0], parseFloat(item[2])])
+            }]
+        };
 
-        var customColorScale = anychart.scales.linearColor();
-        customColorScale.colors(["#DEEBF7", "#4292C6", "#08306B"]);
-        chart.colorScale(customColorScale);
+        // 옵션을 차트에 적용
+        chart.setOption(option);
 
-        //chart.labels().fontColor("#B0B0B0"); // 원하는 폰트 색상으로 변경
-        //chart.labels().fontWeight("bold");
-        chart.labels().enabled(false);
+        // 다크 모드 상태에 따른 배경색 업데이트 함수
+        function updateChartBackgroundColor() {
+            var isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var backgroundColor = isDarkMode ? '#333' : '#fff';
+            chart.setOption({
+                backgroundColor: backgroundColor
+            });
+        }
 
-        chart.container("container");
-        chart.draw();
-
-        // chart instance를 전역 변수로 저장
-        document.getElementById("container").anychart = chart;
-
-        // 다크 모드 상태에 따른 배경색 업데이트
-        updateChartBackgroundColor();
+        // 다크 모드 상태 변경 시 배경색 업데이트
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateChartBackgroundColor);
     });
 </script>
 <div id="container"></div>
