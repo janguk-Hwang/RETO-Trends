@@ -940,6 +940,50 @@
 
         document.addEventListener("DOMContentLoaded", loadDarkMode);
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 초기 상태에서 버튼을 숨김
+            var addButton = document.getElementById('addSearchBox');
+            addButton.style.display = 'none';
+
+            // 입력란의 값이 변경될 때마다 호출되는 함수
+            function checkInputs() {
+                var form = document.getElementById('myForm');
+                var queryInputs = form.querySelectorAll('input[type="text"]');
+                var allFilled = true;
+
+                // 모든 텍스트 입력란이 채워졌는지 확인
+                queryInputs.forEach(function(input) {
+                    if (input.value.trim() === "") {
+                        allFilled = false;
+                    }
+                });
+
+                // 모든 입력란이 채워졌다면 버튼을 보이게, 아니면 숨기기
+                if (allFilled) {
+                    addButton.style.display = 'inline-block';
+                } else {
+                    addButton.style.display = 'none';
+                }
+            }
+
+            // 입력란의 값이 변경될 때마다 checkInputs 함수를 호출
+            var textInputs = document.querySelectorAll('input[type="text"]');
+            textInputs.forEach(function(input) {
+                input.addEventListener('input', checkInputs);
+            });
+
+            // 검색 데이터 조회 후에도 입력 상태 확인하여 버튼 상태 업데이트
+            document.getElementById('search_button').addEventListener('click', function() {
+                setTimeout(function() {
+                    checkInputs();
+                }, 100); // 100ms 딜레이를 줘서 데이터 조회 후에도 올바르게 동작하도록 함
+            });
+
+            // 초기 입력란 상태 확인하여 버튼 상태 설정
+            checkInputs();
+        });
+    </script>
 </section>
 <br><br><br><br><br><br><br><br>
 <section class="info_section layout_padding2">
