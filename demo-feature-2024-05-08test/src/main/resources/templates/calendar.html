@@ -25,6 +25,9 @@
             margin: 0;
             padding: 0;
         }
+        .item2 {
+            text-align: left;
+        }
 
         .grid-container {
             width: 100%;
@@ -34,8 +37,6 @@
             justify-content: center; /* 추가: 전체 컨테이너 가운데 정렬 */
             grid-gap: 20px; /* grid-gap 대신 여전히 사용 가능 */
             text-align: center; /* 텍스트 가운데 정렬 */
-            align-self: center;
-            align-content: center;
         }
         .item1 {
             padding-top: 60px; /* 필요에 따라 값을 조정 */
@@ -357,7 +358,9 @@
                 <input type="hidden" id="hidden3" placeholder="검색어4" name="query4"/>
                 <input type="hidden" id="hidden4" placeholder="검색어5" name="query5"/>
 
-                <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">검색어 추가</button>
+                <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">
+                    <i class="fas fa-plus"></i>
+                </button>
                 <script>
                     // 입력란의 값이 변경될 때마다 호출되는 함수
                     function checkInputs() {
@@ -511,20 +514,25 @@
                     });
                 </script>
             </div>
+            <div style="display: flex; align-items: flex-start;">
+                <!-- 텍스트 부분 -->
+
+                <!-- 필터 부분 -->
+                <div style="flex: 1;">
             <div class="item2">
                 <br>
-                <strong class="title">기간</strong>
+                <strong class="title">&nbsp&nbsp기간</strong>
                 <input type="date" id="startDate" name="date1" value="defaultDate()">~
                 <input type="date" id="endDate" name="date2">
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">단위</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp단위</strong>
                 <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">
                 <option selected value="date">일간</option>
                 <option value="week">주간</option>
                 <option value="month">월간</option>
             </select>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">범위</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp범위</strong>
                 <span class="select_box v1">
                     <select name="device" id="select_box_mopc">
                         <option selected value="">전체</option>
@@ -533,7 +541,7 @@
                     </select>
                     </span>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">성별</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp성별</strong>
                 <select name="gender" id="select_box_gender">
                     <option selected value="">전체</option>
                     <option value="f">여성</option>
@@ -683,6 +691,50 @@
     });
 
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 초기 상태에서 버튼을 숨김
+        var addButton = document.getElementById('addSearchBox');
+        addButton.style.display = 'none';
+
+        // 입력란의 값이 변경될 때마다 호출되는 함수
+        function checkInputs() {
+            var form = document.getElementById('myForm');
+            var queryInputs = form.querySelectorAll('input[type="text"]');
+            var allFilled = true;
+
+            // 모든 텍스트 입력란이 채워졌는지 확인
+            queryInputs.forEach(function(input) {
+                if (input.value.trim() === "") {
+                    allFilled = false;
+                }
+            });
+
+            // 모든 입력란이 채워졌다면 버튼을 보이게, 아니면 숨기기
+            if (allFilled) {
+                addButton.style.display = 'inline-block';
+            } else {
+                addButton.style.display = 'none';
+            }
+        }
+
+        // 입력란의 값이 변경될 때마다 checkInputs 함수를 호출
+        var textInputs = document.querySelectorAll('input[type="text"]');
+        textInputs.forEach(function(input) {
+            input.addEventListener('input', checkInputs);
+        });
+
+        // 검색 데이터 조회 후에도 입력 상태 확인하여 버튼 상태 업데이트
+        document.getElementById('search_button').addEventListener('click', function() {
+            setTimeout(function() {
+                checkInputs();
+            }, 100); // 100ms 딜레이를 줘서 데이터 조회 후에도 올바르게 동작하도록 함
+        });
+
+        // 초기 입력란 상태 확인하여 버튼 상태 설정
+        checkInputs();
+    });
+</script>
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
     anychart.onDocumentReady(function() {
@@ -767,8 +819,8 @@
 
 // Heatmap 설정
         chart.title("Heatmap with Separate Lists");
-        chart.xAxis().title("Years");
-        chart.yAxis().title("Titles");
+        // chart.xAxis().title("Years");
+        // chart.yAxis().title("Titles");
 
         // create and configure the color scale.
         var customColorScale = anychart.scales.linearColor();

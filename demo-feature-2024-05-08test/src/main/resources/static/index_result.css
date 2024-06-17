@@ -57,7 +57,7 @@ button {
     font-weight: bold; /* 폰트 굵기 조정 */
     transition: background-color 0.3s, transform 0.3s; /* 배경색과 크기 변화 트랜지션 */
     text-decoration: none;
-    margin: 5px;
+    margin: 0px 5px 0px 5px;
 }
 .custom-btn:hover {
     background-color: #b3b7bb; /* 조금 더 짙은 회색 */
@@ -71,6 +71,9 @@ button {
 
 .item1 {
     width: 100%;
+}
+.item2 {
+    text-align: left;
 }
 .item5 {
     width: 100%;
@@ -103,15 +106,7 @@ input[type="text"], button {
     margin-right: 10px;
     font-size: 16px;
 }
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font: 700 1.2rem 'Roboto Slab', sans-serif;
-    &:focus { outline: 2px dotted #55d7dc; }
-    cursor: pointer;
-}
+
 button:hover {
     background-color: gray;
 }

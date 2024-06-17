@@ -114,7 +114,7 @@
                     }
                 },
                 title: {
-                    text: '비교군 1',
+                    text: 'Group A',
                     textStyle: {
                         color: '#B0B0B0'
                     }
@@ -281,7 +281,7 @@
                     }
                 },
                 title: {
-                    text: '비교군 2',
+                    text: 'Group B',
                     textStyle: {
                         color: '#B0B0B0'
                     }
@@ -510,10 +510,11 @@
     <div class="grid-container">
         <form action="index_result" method="get" id="myForm">
             <div class="item1">
-                <br><br><br><br><br>
+                <br><br><br><br><br><br><br><br>
                 <h1>
                     차트 <span>비교분석</span>
                 </h1>
+                <br>
                 <input type="text" placeholder="검색어1(필수)" name="query1" id="query1" required/>
 
                 <input type="hidden" id="hidden1" placeholder="검색어2" name="query2"/>
@@ -521,7 +522,9 @@
                 <input type="hidden" id="hidden3" placeholder="검색어4" name="query4"/>
                 <input type="hidden" id="hidden4" placeholder="검색어5" name="query5"/>
 
-                <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">검색어 추가</button>
+                <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">
+                    <i class="fas fa-plus"></i>
+                </button>
                 <script>
                     // 입력란의 값이 변경될 때마다 호출되는 함수
                     function checkInputs() {
@@ -688,21 +691,29 @@
                     });
                 </script>
             </div>
+            <br>
+            <div style="display: flex; align-items: flex-start;">
+                <!-- 텍스트 부분 -->
+                <div style="flex: 0 0 50px; margin-top: 30px;">
+                    <p style="font-size: 24px; font-weight: bold; color: #B0B0B0; margin-top: 5px; margin-right: 15px;">Group&nbsp&nbsp&nbspA</p>
+                    <p style="font-size: 24px; font-weight: bold; color: #B0B0B0; margin-right: 15px; margin-top: 70px;">Group&nbsp&nbsp&nbspB</p>
+                </div>
+                <!-- 필터 부분 -->
+                <div style="flex: 1;">
             <div class="item2">
                 <br>
-                <strong>비교군1 : </strong>
-                <strong class="title">기간</strong>
+                <strong class="title">&nbsp&nbsp기간&nbsp</strong>
                 <input type="date" id="startDate1" name="date1" required>~
                 <input type="date" id="endDate1" name="date2" required>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">단위</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp단위&nbsp</strong>
                 <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">
                 <option selected value="date">일간</option>
                 <option value="week">주간</option>
                 <option value="month">월간</option>
             </select>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">범위</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp범위&nbsp</strong>
                 <span class="select_box v1">
             <select name="device" id="select_box_mopc">
                 <option selected value="">전체</option>
@@ -711,7 +722,7 @@
             </select>
             </span>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">성별</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp성별&nbsp</strong>
                 <select name="gender" id="select_box_gender">
                     <option selected value="">전체</option>
                     <option value="f">여성</option>
@@ -720,7 +731,7 @@
                 <div class="set_col set_target_chk _checkbox_ui">
                     <div class="set_chk _item_check_div _age_div">
                         <a>&nbsp</a>
-                        <strong class="title v2">연령선택&nbsp&nbsp</strong>
+                        <strong class="title v2">연령&nbsp&nbsp</strong>
                         <span class="select_chk v1">
                         <input type="checkbox" id="item_age_all" class="chk" name="age" value="" checked onclick="toggleAllCheckboxes('age', this)">
                         <label class="lbl " for="item_age_all">전체&nbsp</label>
@@ -772,20 +783,19 @@
                     </div>
                 </div>
                 <hr class="hr-1">
-                <strong>비교군2 : </strong>
-                <strong class="title">기간</strong>
+                <strong class="title">&nbsp&nbsp기간&nbsp</strong>
                 <input type="date" id="startDate2" name="date3" required>~
                 <input type="date" id="endDate2" name="date4" required>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">단위</strong>
+                <strong class="title">단위&nbsp</strong>
                 <label for="selectDayType"></label><select name="select_day_week_month2" id="selectDayType2">
                 <option selected value="date">일간</option>
                 <option value="week">주간</option>
                 <option value="month">월간</option>
             </select>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">범위</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp범위&nbsp</strong>
                 <span class="select_box v1">
             <select name="device2" id="select_box_mopc2">
                 <option selected value="">전체</option>
@@ -794,7 +804,7 @@
             </select>
             </span>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">성별</strong>
+                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp성별&nbsp</strong>
                 <select name="gender2" id="select_box_gender2">
                     <option selected value="">전체</option>
                     <option value="f">여성</option>
@@ -803,7 +813,7 @@
                 <div class="set_col set_target_chk _checkbox_ui">
                     <div class="set_chk _item_check_div _age_div">
                         <a>&nbsp</a>
-                        <strong class="title v2">연령선택&nbsp&nbsp</strong>
+                        <strong class="title v2">연령&nbsp&nbsp</strong>
                         <span class="select_chk v1">
                         <input type="checkbox" id="item_age2_all" class="chk" name="age2" value="" checked onclick="toggleAllCheckboxes('age2', this)">
                         <label class="lbl " for="item_age2_all">전체&nbsp</label>
@@ -855,9 +865,23 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <button class="custom-btn btn-7 item4" id="search_button" type="submit">LETO 검색 데이터 조회</button>
+                </div>
+            </div>
+            <br><br>
+            <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
+                <span class="text">LETO Trends 검색 데이터 조회</span>
+            </a>
+            <!-- 숨겨진 submit 버튼 -->
+            <button type="submit" id="hiddenSubmit" style="display: none;"></button>
+            <script>
+                // 링크 클릭 시 form submit 이벤트 발생
+                document.getElementById('submitLink').addEventListener('click', function(event) {
+                    event.preventDefault(); // 기본 링크 이벤트 방지
+                    document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                });
+            </script>
         </form>
+        <br>
         <div class="item3">
             <form action="/favorite_url" onsubmit="return clickAlert()" method="get">
                 <div>
@@ -888,6 +912,7 @@
                 </div>
             </form>
         </div>
+        <br>
         <div class="item5">
             <div class="card card-4" id="chart1"></div>
             &nbsp&nbsp&nbsp&nbsp
@@ -985,7 +1010,7 @@
         });
     </script>
 </section>
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <section class="info_section layout_padding2">
     <div class="container_1">
         <div class="row">
@@ -1061,7 +1086,6 @@
         </div>
     </div>
 </section>
-
 <!-- jQery -->
 <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
 <!-- popper js -->
