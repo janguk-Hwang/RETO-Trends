@@ -525,6 +525,56 @@
                 <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">
                     <i class="fas fa-plus"></i>
                 </button>
+                <button type="button" class="custom-btn btn-7" onclick="resetForm()">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <script>
+                    // Form 초기화 함수
+                    function resetForm() {
+                        const form = document.getElementById('myForm');
+
+                        // 텍스트 입력 초기화
+                        const textInputs = form.querySelectorAll('input[type="text"]');
+                        textInputs.forEach(input => input.value = '');
+
+                        // 날짜 입력 초기화
+                        const dateInputs = form.querySelectorAll('input[type="date"]');
+                        dateInputs.forEach(input => input.value = '');
+
+                        // 셀렉트 박스 초기화
+                        const selectBoxes = form.querySelectorAll('select');
+                        selectBoxes.forEach(select => select.selectedIndex = 0);
+
+                        // 체크박스 초기화
+                        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+                        checkboxes.forEach(checkbox => checkbox.checked = false);
+                        updateAllCheckbox('age', 'item_age_all');
+                        updateAllCheckbox('age2', 'item_age2_all');
+
+
+                        // 날짜 필드 기본값 설정
+                        const today = new Date();
+                        const currentYear1 = today.getFullYear() - 2;
+                        const currentYear2 = today.getFullYear() - 1;
+                        const currentYear3 = today.getFullYear() - 1;
+                        const currentYear4 = today.getFullYear();
+                        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+                        const currentDay = String(today.getDate()).padStart(2, '0');
+
+                        const startDateInput1 = document.getElementById('startDate1');
+                        const endDateInput1 = document.getElementById('endDate1');
+                        const startDateInput2 = document.getElementById('startDate2');
+                        const endDateInput2 = document.getElementById('endDate2');
+
+                        endDateInput1.value = `${currentYear2}-${currentMonth}-${currentDay}`;
+                        startDateInput1.value = `${currentYear1}-${currentMonth}-${currentDay}`;
+                        endDateInput2.value = `${currentYear4}-${currentMonth}-${currentDay}`;
+                        startDateInput2.value = `${currentYear3}-${currentMonth}-${currentDay}`;
+                    }
+
+                    // 페이지 로드 시 기본값 설정
+                    document.addEventListener('DOMContentLoaded', resetForm);
+                </script>
                 <script>
                     // 입력란의 값이 변경될 때마다 호출되는 함수
                     function checkInputs() {

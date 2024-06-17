@@ -2439,11 +2439,12 @@ textarea.form-control {
 
 .input-container-mypage {
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 30px 50px 50px 50px;
   border-radius: 10px;
-  width: 330px;
+  width: 500px;
   margin: 0 auto;
   text-align: center;
+  font-size: 22px;
 }
 
 .input-container-changeName {
