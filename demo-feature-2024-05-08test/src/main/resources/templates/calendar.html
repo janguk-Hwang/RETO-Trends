@@ -231,109 +231,32 @@
 
             return true;
         }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const searchButton = document.getElementById('search_button');
+            searchButton.addEventListener('click', (event) => {
+                if (!validateCheckboxSelection()) {
+                    event.preventDefault(); // 폼 제출 방지
+                }
+            });
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            for (let i = 1; i <= 4; i++) {
-                const yearSelect = document.getElementById(`selectYear${i}`);
-                const monthSelect = document.getElementById(`selectMonth${i}`);
-                const daySelect = document.getElementById(`selectDay${i}`);
+            const selectDayType1 = document.getElementById('selectDayType');
+            const selectDayType2 = document.getElementById('selectDayType2');
 
-                const today = new Date();
-                const currentYear = today.getFullYear();
-                const currentMonth = today.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줌
-                const currentDate = today.getDate();
-
-                function updateMonths(yearSelect, monthSelect) {
-                    const selectedYear = parseInt(yearSelect.value);
-                    // 기존의 월 옵션을 모두 제거합니다.
-                    monthSelect.innerHTML = '';
-
-                    for (let month = 1; month <= 12; month++) {
-                        // 현재 년도보다 작거나 같은 경우에만 월을 추가합니다.
-                        if (selectedYear < currentYear || (selectedYear === currentYear && month <= currentMonth)) {
-                            const option = document.createElement('option');
-                            option.value = month.toString().padStart(2, '0');
-                            option.textContent = month;
-                            monthSelect.appendChild(option);
-                        }
-                    }
-
-                    // 월 셀렉트 박스를 현재 월로 설정합니다.
-                    monthSelect.value = currentMonth.toString().padStart(2, '0');
-                }
-
-                function updateDays(yearSelect, monthSelect, daySelect, groupNumber) {
-                    const year = parseInt(yearSelect.value);
-                    const month = parseInt(monthSelect.value);
-                    let daysInMonth;
-
-                    const selectedDay = parseInt(daySelect.value);
-
-                    if (month === 2 && ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0)) {
-                        daysInMonth = 29;
-                    } else {
-                        daysInMonth = new Date(year, month, 0).getDate();
-                    }
-
-                    daySelect.innerHTML = '';
-
-                    for (let day = 1; day <= daysInMonth; day++) {
-                        const option = document.createElement('option');
-                        option.value = day.toString().padStart(2, '0');
-                        option.textContent = day;
-
-                        const selectedDate = new Date(year, month - 1, day);
-
-                        if (selectedDate <= today) {
-                            if (groupNumber === 1 || groupNumber === 3) {
-                                if (day === currentDate && (year === currentYear - 2 || year === currentYear - 1) && month === currentMonth) {
-                                    option.selected = true;
-                                }
-                            } else {
-                                if (day === currentDate && year === currentYear && month === currentMonth) {
-                                    option.selected = true;
-                                }
-                            }
-                            daySelect.appendChild(option);
-                        }
-                    }
-
-                    if (selectedDay && selectedDay <= daysInMonth) {
-                        daySelect.value = selectedDay.toString().padStart(2, '0');
-                    }
-
-                    const selectedDate = new Date(year, month - 1, parseInt(daySelect.value));
-                    if (selectedDate > today) {
-                        alert('미래 날짜는 선택할 수 없습니다.');
-                        yearSelect.value = currentYear.toString();
-                        monthSelect.value = currentMonth.toString().padStart(2, '0');
-                        daySelect.value = currentDate.toString().padStart(2, '0');
-                    }
-                }
-
-                // 연도를 조정합니다. yearSelect1은 -2, yearSelect3은 -1 합니다.
-                if (i === 1) {
-                    yearSelect.value = (currentYear - 1).toString();
-                }
-                else {
-                    yearSelect.value = currentYear.toString();
-                }
-
-                // 월 셀렉트 박스를 업데이트합니다.
-                updateMonths(yearSelect, monthSelect);
-
-                // 일 셀렉트 박스를 업데이트합니다.
-                updateDays(yearSelect, monthSelect, daySelect, i);
-
-                // 셀렉트 박스 값 변경 시 업데이트합니다.
-                yearSelect.addEventListener('change', () => {
-                    updateMonths(yearSelect, monthSelect);
-                    updateDays(yearSelect, monthSelect, daySelect, i);
-                });
-                monthSelect.addEventListener('change', () => updateDays(yearSelect, monthSelect, daySelect, i));
-                daySelect.addEventListener('change', () => updateDays(yearSelect, monthSelect, daySelect, i));
+            function syncSelectBoxes(source, target) {
+                target.value = source.value;
             }
+
+            selectDayType1.addEventListener('change', function () {
+                syncSelectBoxes(selectDayType1, selectDayType2);
+            });
+
+            selectDayType2.addEventListener('change', function () {
+                syncSelectBoxes(selectDayType2, selectDayType1);
+            });
         });
     </script>
 </head>
@@ -351,6 +274,7 @@
                 <h1>
                     히트맵 <span>캘린더</span>
                 </h1>
+                <br>
                 <input type="text" placeholder="검색어1(필수)" name="query1" id="query1" required/>
 
                 <input type="hidden" id="hidden1" placeholder="검색어2" name="query2"/>
@@ -361,6 +285,56 @@
                 <button class="custom-btn btn-7" type="button" id="addSearchBox" style="display: none;">
                     <i class="fas fa-plus"></i>
                 </button>
+                <button type="button" class="custom-btn btn-7" onclick="resetForm()">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <script>
+                    // Form 초기화 함수
+                    function resetForm() {
+                        const form = document.getElementById('myForm');
+
+                        // 텍스트 입력 초기화
+                        const textInputs = form.querySelectorAll('input[type="text"]');
+                        textInputs.forEach(input => input.value = '');
+
+                        // 날짜 입력 초기화
+                        const dateInputs = form.querySelectorAll('input[type="date"]');
+                        dateInputs.forEach(input => input.value = '');
+
+                        // 셀렉트 박스 초기화
+                        const selectBoxes = form.querySelectorAll('select');
+                        selectBoxes.forEach(select => select.selectedIndex = 0);
+
+                        // 체크박스 초기화
+                        const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+                        checkboxes.forEach(checkbox => checkbox.checked = false);
+                        updateAllCheckbox('age', 'item_age_all');
+                        updateAllCheckbox('age2', 'item_age2_all');
+
+                        // 날짜 필드 기본값 설정
+                        const today = new Date();
+                        const currentYear1 = today.getFullYear() - 2;
+                        const currentYear2 = today.getFullYear() - 1;
+                        const currentYear3 = today.getFullYear() - 1;
+                        const currentYear4 = today.getFullYear();
+                        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+                        const currentDay = String(today.getDate()).padStart(2, '0');
+
+                        const startDateInput = document.getElementById('startDate');
+                        const endDateInput = document.getElementById('endDate');
+                        const startDateInput2 = document.getElementById('startDate2');
+                        const endDateInput2 = document.getElementById('endDate2');
+
+                        endDateInput.value = `${currentYear2}-${currentMonth}-${currentDay}`;
+                        startDateInput.value = `${currentYear1}-${currentMonth}-${currentDay}`;
+                        endDateInput2.value = `${currentYear4}-${currentMonth}-${currentDay}`;
+                        startDateInput2.value = `${currentYear3}-${currentMonth}-${currentDay}`;
+                    }
+
+                    // 페이지 로드 시 기본값 설정
+                    document.addEventListener('DOMContentLoaded', resetForm);
+                </script>
+                <br><br>
                 <script>
                     // 입력란의 값이 변경될 때마다 호출되는 함수
                     function checkInputs() {
@@ -521,8 +495,8 @@
                 <div style="flex: 1;">
             <div class="item2">
                 <br>
-                <strong class="title">&nbsp&nbsp기간</strong>
-                <input type="date" id="startDate" name="date1" value="defaultDate()">~
+                <strong class="title">&nbsp&nbsp기간&nbsp</strong>
+                <input type="date" id="startDate" name="date1" value="defaultDate()">&nbsp~&nbsp
                 <input type="date" id="endDate" name="date2">
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
                 <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp단위</strong>
@@ -601,9 +575,142 @@
                             </span>
                     </div>
                 </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const searchTerm1 = urlParams.get('query1');
+                        const searchTerm2 = urlParams.get('query2');
+                        const searchTerm3 = urlParams.get('query3');
+                        const searchTerm4 = urlParams.get('query4');
+                        const searchTerm5 = urlParams.get('query5');
+
+                        const searchInput1 = document.getElementById('query1');
+                        const searchInput2 = document.getElementById('hidden1');
+                        const searchInput3 = document.getElementById('hidden2');
+                        const searchInput4 = document.getElementById('hidden3');
+                        const searchInput5 = document.getElementById('hidden4');
+
+                        const startDateInput = document.getElementById('startDate');
+                        const endDateInput = document.getElementById('endDate');
+                        const startDateInput2 = document.getElementById('startDate2');
+                        const endDateInput2 = document.getElementById('endDate2');
+
+                        const selectDayTypeInput = document.getElementById('selectDayType');
+                        const selectBoxMopcInput = document.getElementById('select_box_mopc');
+                        const selectBoxGenderInput = document.getElementById('select_box_gender');
+                        const itemAgeAllCheckbox = document.getElementById('item_age_all');
+                        const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
+
+                        const selectDayTypeInput2 = document.getElementById('selectDayType2');
+                        const selectBoxMopcInput2 = document.getElementById('select_box_mopc2');
+                        const selectBoxGenderInput2 = document.getElementById('select_box_gender2');
+                        const itemAgeAllCheckbox2 = document.getElementById('item_age2_all');
+                        const itemAgeCheckboxes2 = document.querySelectorAll('input[name="age2"]');
+
+
+                        if (searchTerm1) {
+                            searchInput1.value = searchTerm1;
+                        }
+                        if (searchTerm2) {
+                            searchInput2.value = searchTerm2;
+                            searchInput2.type = "text";
+                        }
+                        if (searchTerm3) {
+                            searchInput3.value = searchTerm3;
+                            searchInput3.type = "text";
+                        }
+                        if (searchTerm4) {
+                            searchInput4.value = searchTerm4;
+                            searchInput4.type = "text";
+                        }
+                        if (searchTerm5) {
+                            searchInput5.value = searchTerm5;
+                            searchInput5.type = "text";
+                        }
+
+                        const startDateParam = urlParams.get('date1');
+                        const endDateParam = urlParams.get('date2');
+                        const selectDayTypeParam = urlParams.get('select_day_week_month');
+                        const selectBoxMopcParam = urlParams.get('device');
+                        const selectBoxGenderParam = urlParams.get('gender');
+                        const ageParams = urlParams.getAll('age');
+
+                        const startDateParam2 = urlParams.get('date3');
+                        const endDateParam2 = urlParams.get('date4');
+                        const selectDayTypeParam2 = urlParams.get('select_day_week_month2');
+                        const selectBoxMopcParam2 = urlParams.get('device2');
+                        const selectBoxGenderParam2 = urlParams.get('gender2');
+                        const ageParams2 = urlParams.getAll('age2');
+
+                        if (startDateParam) {
+                            startDateInput.value = startDateParam;
+                        }
+                        if (startDateParam2) {
+                            startDateInput2.value = startDateParam2;
+                        }
+                        if (endDateParam) {
+                            endDateInput.value = endDateParam;
+                        }
+                        if (endDateParam2) {
+                            endDateInput2.value = endDateParam2;
+                        }
+                        if (selectDayTypeParam) {
+                            selectDayTypeInput.value = selectDayTypeParam;
+                        }
+                        if (selectDayTypeParam2) {
+                            selectDayTypeInput2.value = selectDayTypeParam2;
+                        }
+                        if (selectBoxMopcParam) {
+                            selectBoxMopcInput.value = selectBoxMopcParam;
+                        }
+                        if (selectBoxMopcParam2) {
+                            selectBoxMopcInput2.value = selectBoxMopcParam2;
+                        }
+                        if (selectBoxGenderParam) {
+                            selectBoxGenderInput.value = selectBoxGenderParam;
+                        }
+                        if (selectBoxGenderParam2) {
+                            selectBoxGenderInput2.value = selectBoxGenderParam2;
+                        }
+                        // 연령 항목 설정
+                        if (ageParams.length > 0) {
+                            ageParams.forEach(age => {
+                                const checkbox = document.getElementById(`item_age_${age}`);
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                            updateAllCheckbox('age', 'item_age_all');
+                        }
+
+                        if (ageParams2.length > 0) {
+                            ageParams2.forEach(age => {
+                                const checkbox2 = document.getElementById(`item_age2_${age}`);
+                                if (checkbox2) {
+                                    checkbox2.checked = true;
+                                }
+                            });
+                            updateAllCheckbox('age2', 'item_age2_all');
+                        }
+                    });
+                </script>
             </div>
-            <br>
-            <button class="custom-btn btn7 item4" id="search_button" type="submit">LETO 검색 데이터 조회</button>
+            <br><br>
+                    <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
+                        <span class="text">LETO Trends 검색 데이터 조회</span>
+                    </a>
+                    <!-- 숨겨진 submit 버튼 -->
+                    <button type="submit" id="hiddenSubmit" style="display: none;"></button>
+                    <script>
+                        // 링크 클릭 시 form submit 이벤트 발생
+                        document.getElementById('submitLink').addEventListener('click', function(event) {
+                            event.preventDefault(); // 기본 링크 이벤트 방지
+                            document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                        });
+                    </script>
+                </div>
+            </div>
+            <br><br>
         </form>
         <form action="/calendarFavoriteUrl" onsubmit="return clickAlert()" method="get">
             <div>
@@ -725,7 +832,7 @@
         });
 
         // 검색 데이터 조회 후에도 입력 상태 확인하여 버튼 상태 업데이트
-        document.getElementById('search_button').addEventListener('click', function() {
+        document.getElementById('submitLink').addEventListener('click', function() {
             setTimeout(function() {
                 checkInputs();
             }, 100); // 100ms 딜레이를 줘서 데이터 조회 후에도 올바르게 동작하도록 함
