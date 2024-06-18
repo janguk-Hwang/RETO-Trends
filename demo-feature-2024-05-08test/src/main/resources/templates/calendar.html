@@ -272,7 +272,7 @@
         <form method="get" id="myForm">
             <div class="item1">
                 <h1>
-                    히트맵 <span>캘린더</span>
+                    히트맵 캘린더
                 </h1>
                 <br>
                 <input type="text" placeholder="검색어1(필수)" name="query1" id="query1" required/>
@@ -289,7 +289,6 @@
                     <i class="fas fa-trash-alt"></i>
                 </button>
                 <script>
-                    // Form 초기화 함수
                     function resetForm() {
                         const form = document.getElementById('myForm');
 
@@ -311,24 +310,18 @@
                         updateAllCheckbox('age', 'item_age_all');
                         updateAllCheckbox('age2', 'item_age2_all');
 
-                        // 날짜 필드 기본값 설정
+                        // 현재 날짜 설정
                         const today = new Date();
-                        const currentYear1 = today.getFullYear() - 2;
-                        const currentYear2 = today.getFullYear() - 1;
-                        const currentYear3 = today.getFullYear() - 1;
-                        const currentYear4 = today.getFullYear();
+                        const currentYear = today.getFullYear();
                         const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
                         const currentDay = String(today.getDate()).padStart(2, '0');
 
+                        // YYYY-MM-DD 형식으로 날짜 설정
                         const startDateInput = document.getElementById('startDate');
                         const endDateInput = document.getElementById('endDate');
-                        const startDateInput2 = document.getElementById('startDate2');
-                        const endDateInput2 = document.getElementById('endDate2');
 
-                        endDateInput.value = `${currentYear2}-${currentMonth}-${currentDay}`;
-                        startDateInput.value = `${currentYear1}-${currentMonth}-${currentDay}`;
-                        endDateInput2.value = `${currentYear4}-${currentMonth}-${currentDay}`;
-                        startDateInput2.value = `${currentYear3}-${currentMonth}-${currentDay}`;
+                        startDateInput.value = `${currentYear}-${currentMonth}-${currentDay}`;
+                        endDateInput.value = `${currentYear}-${currentMonth}-${currentDay}`;
                     }
 
                     // 페이지 로드 시 기본값 설정
@@ -496,8 +489,8 @@
             <div class="item2">
                 <br>
                 <strong class="title">&nbsp&nbsp기간&nbsp</strong>
-                <input type="date" id="startDate" name="date1" value="defaultDate()">&nbsp~&nbsp
-                <input type="date" id="endDate" name="date2">
+                <input type="date" id="startDate" name="date1" required>&nbsp~&nbsp
+                <input type="date" id="endDate" name="date2" required>
                 <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
                 <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp단위</strong>
                 <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">

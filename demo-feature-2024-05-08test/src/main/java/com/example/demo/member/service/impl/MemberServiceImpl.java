@@ -191,8 +191,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String NaverApiResponse(String query1, String query2, String query3, String query4, String query5, String date1, String date2, String timeunit, String coverage, String gender, String[] age) throws JSONException {
-        String clientId = "yeRsNjkDl0PmHo3i09r1"; // 애플리케이션 클라이언트 아이디
-        String clientSecret = "iqRygcj9AF"; // 애플리케이션 클라이언트 시크릿
+        String clientId = "MUAayGwsDMWNiVmux424"; // 애플리케이션 클라이언트 아이디
+        String clientSecret = "ahi_7KupeV"; // 애플리케이션 클라이언트 시크릿
 
         String apiUrl = "https://openapi.naver.com/v1/datalab/search";
 
