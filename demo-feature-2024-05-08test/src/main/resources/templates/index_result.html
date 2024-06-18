@@ -548,8 +548,8 @@
                         // 체크박스 초기화
                         const checkboxes = form.querySelectorAll('input[type="checkbox"]');
                         checkboxes.forEach(checkbox => checkbox.checked = false);
-                        updateAllCheckbox('age', 'item_age_all');
-                        updateAllCheckbox('age2', 'item_age2_all');
+                        // updateAllCheckbox('age', 'item_age_all');
+                        // updateAllCheckbox('age2', 'item_age2_all');
 
 
                         // 날짜 필드 기본값 설정
@@ -749,7 +749,7 @@
                         <a>&nbsp</a>
                         <strong class="title v2">연령&nbsp&nbsp</strong>
                         <span class="select_chk v1">
-                        <input type="checkbox" id="item_age_all" class="chk" name="age_all" value="" checked onclick="toggleAllCheckboxes('age', this)">
+                        <input type="checkbox" id="item_age_all" class="chk" name="age" value="" checked onclick="toggleAllCheckboxes('age', this)">
                         <label class="lbl " for="item_age_all">전체&nbsp</label>
                     </span>
                         <span class="select_chk v1">
@@ -950,7 +950,7 @@
                         <a>&nbsp</a>
                         <strong class="title v2">연령&nbsp&nbsp</strong>
                         <span class="select_chk v1">
-                        <input type="checkbox" id="item_age2_all" class="chk" name="age2_all" value="" checked onclick="toggleAllCheckboxes('age2', this)">
+                        <input type="checkbox" id="item_age2_all" class="chk" name="age2" value="" checked onclick="toggleAllCheckboxes('age2', this)">
                         <label class="lbl " for="item_age2_all">전체&nbsp</label>
                     </span>
                         <span class="select_chk v1">
@@ -1004,16 +1004,40 @@
             </div>
             <br><br>
             <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
-                <span class="text">LETO Trends 검색 데이터 조회</span>
+                <span class="text" >LETO Trends 검색 데이터 조회</span>
             </a>
             <!-- 숨겨진 submit 버튼 -->
             <button type="submit" id="hiddenSubmit" style="display: none;"></button>
             <script>
-                // 링크 클릭 시 form submit 이벤트 발생
-                document.getElementById('submitLink').addEventListener('click', function(event) {
-                    event.preventDefault(); // 기본 링크 이벤트 방지
-                    document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                function validateCheckboxSelection() {
+                    // 첫 번째 그룹 'age'에 대한 검증
+                    const ageCheckboxes = document.querySelectorAll('input[name="age"]');
+                    const anyAgeChecked = Array.from(ageCheckboxes).some(checkbox => checkbox.checked);
+
+                    // 두 번째 그룹 'age2'에 대한 검증
+                    const age2Checkboxes = document.querySelectorAll('input[name="age2"]');
+                    const anyAge2Checked = Array.from(age2Checkboxes).some(checkbox => checkbox.checked);
+
+                    // 두 그룹 중 하나라도 선택되지 않은 경우 경고
+                    if (!anyAgeChecked) {
+                        alert("Group A에서 최소한 하나의 연령을 선택해주세요.");
+                        return false;
+                    }
+
+                    if (!anyAge2Checked) {
+                        alert("Group B에서 최소한 하나의 연령을 선택해주세요.");
+                        return false;
+                    }
+                    return true;
+                }
+
+
+                document.getElementById('submitLink').addEventListener('click', function() {
+                    if (validateCheckboxSelection()) {
+                        document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                    }
                 });
+
             </script>
         </form>
         <br>
