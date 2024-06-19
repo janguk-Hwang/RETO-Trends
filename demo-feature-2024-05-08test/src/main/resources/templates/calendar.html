@@ -519,7 +519,7 @@
                         <a>&nbsp</a>
                         <strong class="title v2">연령선택</strong>
                         <span class="select_chk v1">
-                                <input type="checkbox" id="item_age_all" class="chk" name="age" value="" checked onclick="toggleAllCheckboxes('age', this)">
+                                <input type="checkbox" id="item_age_all" class="chk" name="age" value="" onclick="toggleAllCheckboxes('age', this)">
                                 <label class="lbl " for="item_age_all">전체&nbsp</label>
                             </span>
                         <span class="select_chk v1">
@@ -690,16 +690,31 @@
             </div>
             <br><br>
                     <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
-                        <span class="text">LETO Trends 검색 데이터 조회</span>
+                        <span class="text" >LETO Trends 검색 데이터 조회</span>
                     </a>
                     <!-- 숨겨진 submit 버튼 -->
                     <button type="submit" id="hiddenSubmit" style="display: none;"></button>
                     <script>
-                        // 링크 클릭 시 form submit 이벤트 발생
-                        document.getElementById('submitLink').addEventListener('click', function(event) {
-                            event.preventDefault(); // 기본 링크 이벤트 방지
-                            document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                        function validateCheckboxSelection() {
+                            // 첫 번째 그룹 'age'에 대한 검증
+                            const ageCheckboxes = document.querySelectorAll('input[name="age"]');
+                            const anyAgeChecked = Array.from(ageCheckboxes).some(checkbox => checkbox.checked);
+
+                            // 두 그룹 중 하나라도 선택되지 않은 경우 경고
+                            if (!anyAgeChecked) {
+                                alert("연령을 선택해주세요.");
+                                return false;
+                            }
+                            return true;
+                        }
+
+
+                        document.getElementById('submitLink').addEventListener('click', function() {
+                            if (validateCheckboxSelection()) {
+                                document.getElementById('hiddenSubmit').click(); // 숨겨진 submit 버튼 클릭
+                            }
                         });
+
                     </script>
                 </div>
             </div>
@@ -835,6 +850,52 @@
         checkInputs();
     });
 </script>
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        var startDate = new Date(document.getElementById('startDate').value);
+        var endDate = new Date(document.getElementById('endDate').value);
+        var selectDayType = document.getElementById('selectDayType').value;
+
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var tomorrow = new Date(today.setDate(today.getDate() + 1));
+
+        if (selectDayType === 'date') {
+            var timeDiff = endDate.getTime() - startDate.getTime();
+            var dayDiff = timeDiff / (1000 * 3600 * 24);
+
+            if (dayDiff > 91) {
+                alert("일간 검색 시 최대 3개월까지 검색할 수 있습니다.");
+                event.preventDefault();
+            }
+        } else if (selectDayType === 'week') {
+            var yearGap = endDate.getFullYear() - startDate.getFullYear();
+            if (yearGap > 2 || (yearGap === 2 && endDate.getMonth() > startDate.getMonth()) || (yearGap === 2 && endDate.getMonth() === startDate.getMonth() && endDate.getDate() > startDate.getDate())) {
+                alert("주간 검색 시 최대 2년까지 검색할 수 있습니다.");
+                event.preventDefault();
+            }
+        }
+
+        if (endDate < startDate && (startDate > today || endDate > today)) {
+            event.preventDefault();
+            alert("종료 날짜는 시작 날짜보다 이전이 될 수 없고, 선택 날짜는 현재보다 미래가 될 수 없습니다.");
+            window.location.reload();
+        } else if (endDate < startDate) {
+            event.preventDefault();
+            alert("종료 날짜가 시작 날짜보다 과거일 수 없습니다.");
+            window.location.reload();
+        } else if (startDate > tomorrow || endDate > tomorrow) {
+            event.preventDefault();
+            alert("선택 날짜가 현재 날짜 보다 미래일 수 없습니다.");
+            window.location.reload();
+        } else if (startDate < new Date('2016-01-01') || endDate < new Date('2016-01-01')) {
+            event.preventDefault();
+            alert("2016년 이전의 날짜는 선택할 수 없습니다.");
+            window.location.reload();
+        }
+    });
+</script>
+
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
     anychart.onDocumentReady(function() {
