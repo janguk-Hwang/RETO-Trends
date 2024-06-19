@@ -145,6 +145,7 @@
             height: 500px;
             padding: 20px;
             box-sizing: border-box;
+            overflow-y: auto;
         }
         body.dark-mode #container {
             background-color: #18283B; /* 다크 모드 배경색 */
@@ -739,8 +740,24 @@
                         }
                     }
                 </script>
-                <button class="custom-btn btn-7" type="submit">즐겨찾기 추가</button>
-                <button class="custom-btn btn-7" type="button" onclick="window.location.href='/calendarFavoriteUrl'">즐겨찾기 목록</button>
+                <button class="custom-btn btn-7" type="submit">
+                    <i class="far fa-star"></i>
+                </button>
+                <script>
+                    document.getElementById('toggleFavorite').addEventListener('click', function() {
+                        var icon = this.querySelector('i');
+                        if (icon.classList.contains('far')) {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                        }
+                    });
+                </script>
+                <button class="custom-btn btn-7" type="button" onclick="window.location.href='/calendarFavoriteUrl'">
+                    <i class="fas fa-list"></i> 즐겨찾기 목록
+                </button>
             </div>
         </form>
     </div>
@@ -979,7 +996,7 @@
         var chart = anychart.heatMap(dataSet);
 
 // Heatmap 설정
-        chart.title("Heatmap with Separate Lists");
+        chart.title("");
         // chart.xAxis().title("Years");
         // chart.yAxis().title("Titles");
 

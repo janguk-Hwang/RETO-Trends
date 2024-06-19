@@ -16,6 +16,7 @@
     <title> LETO Trends </title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://ssl.pstatic.net/static.datalab/202405030736/css/datalab.css">
     <link rel="stylesheet" type="text/css" href="https://ssl.pstatic.net/static.datalab/202405030736/css/graph.css">
     <link rel="stylesheet" href="index_result.css">
@@ -510,7 +511,7 @@
     <div class="grid-container">
         <form action="index_result" method="get" id="myForm">
             <div class="item1">
-                <br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <h1>
                     차트 비교분석
                 </h1>
@@ -1003,7 +1004,7 @@
                 </div>
             </div>
             <br><br>
-            <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
+            <a href="#" class="ca_btn_go _trend_search_detail_query" style="" id="submitLink">
                 <span class="text" >LETO Trends 검색 데이터 조회</span>
             </a>
             <!-- 숨겨진 submit 버튼 -->
@@ -1044,9 +1045,6 @@
         <div class="item3">
             <form action="/favorite_url" onsubmit="return clickAlert()" method="get">
                 <div>
-                    <button class="custom-btn btn-7" id="drawLine" type="button" value="line">Line Chart</button>
-                    <button class="custom-btn btn-7" id="drawBar" type="button" value="bar">Bar Chart</button>
-                    <button class="custom-btn btn-7" id="scatter"  type="button" value="scatter">Scatter Chart</button>
                     <input type="hidden" name="url" id="urlInput" value="">
                     <script th:inline="javascript">
                         if (pageUrl()!="http://localhost:8080/index_result"&&pageUrl()!=[[${url1}]]&&pageUrl()!=[[${url2}]]&&pageUrl()!=[[${url3}]]&&pageUrl()!=[[${url4}]]) {
@@ -1066,9 +1064,39 @@
                             }
                         }
                     </script>
-                    <button class="custom-btn btn-7" type="submit">즐겨찾기 추가</button>
-                    <button class="custom-btn btn-7" type="button" onclick="window.location.href='/favorite_url'">즐겨찾기 목록</button>
+                    <button class="custom-btn btn-7" type="submit">
+                        <i class="far fa-star"></i>
+                    </button>
+                    <script>
+                        document.getElementById('toggleFavorite').addEventListener('click', function() {
+                            var icon = this.querySelector('i');
+                            if (icon.classList.contains('far')) {
+                                icon.classList.remove('far');
+                                icon.classList.add('fas');
+                            } else {
+                                icon.classList.remove('fas');
+                                icon.classList.add('far');
+                            }
+                        });
+                    </script>
+                    <button class="custom-btn btn-7" type="button" onclick="window.location.href='/favorite_url'">
+                        <i class="fas fa-list"></i> 즐겨찾기 목록
+                    </button>
                 </div>
+                <br>
+                <div>
+                <button class="custom-btn btn-7" id="drawLine" type="button" value="line">
+                    <i class="fas fa-chart-line"></i> Line Chart
+                </button>
+                <i class="fas fa-grip-lines-vertical"></i>
+                <button class="custom-btn btn-7" id="drawBar" type="button" value="bar">
+                    <i class="fas fa-chart-bar"></i> Bar Chart
+                </button>
+                <i class="fas fa-grip-lines-vertical"></i>
+                <button class="custom-btn btn-7" id="scatter" type="button" value="scatter">
+                    <i class="fas fa-braille"></i> Scatter Chart
+                </button>
+            </div>
             </form>
         </div>
         <br>
@@ -1169,7 +1197,7 @@
         });
     </script>
 </section>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <section class="info_section layout_padding2">
     <div class="container_1">
         <div class="row">

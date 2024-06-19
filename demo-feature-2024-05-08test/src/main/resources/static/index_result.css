@@ -47,26 +47,26 @@ button {
     display: inline-block;
     font-family: 'Arial', sans-serif;
     font-size: 16px;
-    color: #000000;
     padding: 10px 20px 8px 20px;
-    background-color: #d8dbdf; /* 버튼의 기본 배경색 (회색) */
-    border: 2px solid #b3b7bb;
-    border-radius: 5px; /* 둥근 모서리 */
+    /*background-color: #d8dbdf; !* 버튼의 기본 배경색 (회색) *!*/
+    border: 2px solid #FFFFFF;
+    /*border-radius: 5px; !* 둥근 모서리 *!*/
     cursor: pointer; /* 마우스 포인터 모양 변경 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); !* 그림자 추가 *!*/
     font-weight: bold; /* 폰트 굵기 조정 */
     transition: background-color 0.3s, transform 0.3s; /* 배경색과 크기 변화 트랜지션 */
     text-decoration: none;
     margin: 0px 5px 0px 5px;
+    color: #B0B0B0;
 }
 .custom-btn:hover {
-    background-color: #b3b7bb; /* 조금 더 짙은 회색 */
+    background-color: #d8dbdf; /* 조금 더 짙은 회색 */
     transform: translateY(-2px);
 }
-.custom-btn:active {
-    background-color: #545b62; /* 조금 더 짙은 회색 */
-    transform: translateY(-2px);
-}
+/*.custom-btn:active {*/
+/*    background-color: #545b62; !* 조금 더 짙은 회색 *!*/
+/*    transform: translateY(-2px);*/
+/*}*/
 /* index_result.css 또는 다른 CSS 파일에 추가 */
 
 .item1 {
