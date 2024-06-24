@@ -683,6 +683,130 @@
                     });
                 </script>
                 <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const searchTerm1 = urlParams.get('query1');
+                        const searchTerm2 = urlParams.get('query2');
+                        const searchTerm3 = urlParams.get('query3');
+                        const searchTerm4 = urlParams.get('query4');
+                        const searchTerm5 = urlParams.get('query5');
+
+                        const searchInput1 = document.getElementById('query1');
+                        const searchInput2 = document.getElementById('hidden1');
+                        const searchInput3 = document.getElementById('hidden2');
+                        const searchInput4 = document.getElementById('hidden3');
+                        const searchInput5 = document.getElementById('hidden4');
+
+                        const startDateInput = document.getElementById('startDate1');
+                        const endDateInput = document.getElementById('endDate1');
+                        const startDateInput2 = document.getElementById('startDate2');
+                        const endDateInput2 = document.getElementById('endDate2');
+
+                        const selectDayTypeInput = document.getElementById('selectDayType');
+                        const selectBoxMopcInput = document.getElementById('select_box_mopc');
+                        const selectBoxGenderInput = document.getElementById('select_box_gender');
+                        const itemAgeAllCheckbox = document.getElementById('item_age_all');
+                        const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
+
+                        const selectDayTypeInput2 = document.getElementById('selectDayType2');
+                        const selectBoxMopcInput2 = document.getElementById('select_box_mopc2');
+                        const selectBoxGenderInput2 = document.getElementById('select_box_gender2');
+                        const itemAgeAllCheckbox2 = document.getElementById('item_age2_all');
+                        const itemAgeCheckboxes2 = document.querySelectorAll('input[name="age2"]');
+
+
+                        if (searchTerm1) {
+                            searchInput1.value = searchTerm1;
+                        }
+                        if (searchTerm2) {
+                            searchInput2.value = searchTerm2;
+                            searchInput2.type = "text";
+                        }
+                        if (searchTerm3) {
+                            searchInput3.value = searchTerm3;
+                            searchInput3.type = "text";
+                        }
+                        if (searchTerm4) {
+                            searchInput4.value = searchTerm4;
+                            searchInput4.type = "text";
+                        }
+                        if (searchTerm5) {
+                            searchInput5.value = searchTerm5;
+                            searchInput5.type = "text";
+                        }
+
+                        const startDateParam = urlParams.get('date1');
+                        const endDateParam = urlParams.get('date2');
+                        const selectDayTypeParam = urlParams.get('select_day_week_month');
+                        const selectBoxMopcParam = urlParams.get('device');
+                        const selectBoxGenderParam = urlParams.get('gender');
+                        const ageParams = urlParams.getAll('age');
+
+                        const startDateParam2 = urlParams.get('date3');
+                        const endDateParam2 = urlParams.get('date4');
+                        const selectDayTypeParam2 = urlParams.get('select_day_week_month2');
+                        const selectBoxMopcParam2 = urlParams.get('device2');
+                        const selectBoxGenderParam2 = urlParams.get('gender2');
+                        const ageParams2 = urlParams.getAll('age2');
+
+                        if (startDateParam) {
+                            startDateInput.value = startDateParam;
+                        }
+                        if (startDateParam2) {
+                            startDateInput2.value = startDateParam2;
+                        }
+                        if (endDateParam) {
+                            endDateInput.value = endDateParam;
+                        }
+                        if (endDateParam2) {
+                            endDateInput2.value = endDateParam2;
+                        }
+                        if (selectDayTypeParam) {
+                            selectDayTypeInput.value = selectDayTypeParam;
+                        }
+                        if (selectDayTypeParam2) {
+                            selectDayTypeInput2.value = selectDayTypeParam2;
+                        }
+                        if (selectBoxMopcParam) {
+                            selectBoxMopcInput.value = selectBoxMopcParam;
+                        }
+                        if (selectBoxMopcParam2) {
+                            selectBoxMopcInput2.value = selectBoxMopcParam2;
+                        }
+                        if (selectBoxGenderParam) {
+                            selectBoxGenderInput.value = selectBoxGenderParam;
+                        }
+                        if (selectBoxGenderParam2) {
+                            selectBoxGenderInput2.value = selectBoxGenderParam2;
+                        }
+
+                        // 연령 항목 설정
+                        if (ageParams.length > 0) {
+                            ageParams.forEach(age => {
+                                const checkbox = document.getElementById(`item_age_${age}`);
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                            updateAllCheckbox('age', 'item_age_all');
+                        } else {
+                            itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
+                        }
+
+                        if (ageParams2.length > 0) {
+                            ageParams2.forEach(age => {
+                                const checkbox2 = document.getElementById(`item_age2_${age}`);
+                                if (checkbox2) {
+                                    checkbox2.checked = true;
+                                }
+                            });
+                            updateAllCheckbox('age2', 'item_age2_all');
+                        } else {
+                            itemAgeAllCheckbox2.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
+                        }
+                    });
+                </script>
+                <script>
                     function getCurrentDate() {
                         const today = new Date();
                         const year = today.getFullYear();

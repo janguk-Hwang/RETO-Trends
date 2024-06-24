@@ -962,6 +962,7 @@
             for (var j = 0; j < years.length; j++) {
                 var dateValue = years[j];
                 console.log("Original dateValue:", dateValue, "Type:", typeof dateValue);
+                console.log(/*[[${timeunit}]]*/);
 
                 // timeunit이 "month"인 경우 년도와 월까지만 사용
                 if (/*[[${timeunit}]]*/ "date" === "month" && typeof dateValue === 'string') {
