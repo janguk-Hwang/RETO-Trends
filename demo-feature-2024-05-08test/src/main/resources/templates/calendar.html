@@ -551,170 +551,170 @@
 
                 <!-- 필터 부분 -->
                 <div style="flex: 1;">
-            <div class="item2">
-                <br>
-                <strong class="title">&nbsp&nbsp기간&nbsp</strong>
-                <input type="date" id="startDate" name="date1" required>&nbsp~&nbsp
-                <input type="date" id="endDate" name="date2" required>
-                <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp단위</strong>
-                <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">
-                <option selected value="date">일간</option>
-                <option value="week">주간</option>
-                <option value="month">월간</option>
-            </select>
-                <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp범위</strong>
-                <span class="select_box v1">
+                    <div class="item2">
+                        <br>
+                        <strong class="title">&nbsp&nbsp기간&nbsp</strong>
+                        <input type="date" id="startDate" name="date1" required>&nbsp~&nbsp
+                        <input type="date" id="endDate" name="date2" required>
+                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                        <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp단위</strong>
+                        <label for="selectDayType"></label><select name="select_day_week_month" id="selectDayType">
+                        <option selected value="date">일간</option>
+                        <option value="week">주간</option>
+                        <option value="month">월간</option>
+                    </select>
+                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                        <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp범위</strong>
+                        <span class="select_box v1">
                     <select name="device" id="select_box_mopc">
                         <option selected value="">전체</option>
                         <option value="mo">모바일</option>
                         <option value="pc">PC</option>
                     </select>
                     </span>
-                <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
-                <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp성별</strong>
-                <select name="gender" id="select_box_gender">
-                    <option selected value="">전체</option>
-                    <option value="f">여성</option>
-                    <option value="m">남성</option>
-                </select>
-                <div class="set_col set_target_chk _checkbox_ui">
-                    <div class="set_chk _item_check_div _age_div">
-                        <a>&nbsp</a>
-                        <strong class="title v2">연령&nbsp&nbsp</strong>
-                        <span class="select_chk v1">
+                        <a>&nbsp</a><a>&nbsp</a><a>&nbsp</a><a>&nbsp</a>
+                        <strong class="title">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp성별</strong>
+                        <select name="gender" id="select_box_gender">
+                            <option selected value="">전체</option>
+                            <option value="f">여성</option>
+                            <option value="m">남성</option>
+                        </select>
+                        <div class="set_col set_target_chk _checkbox_ui">
+                            <div class="set_chk _item_check_div _age_div">
+                                <a>&nbsp</a>
+                                <strong class="title v2">연령&nbsp&nbsp</strong>
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_all" class="chk" name="age" value="" onclick="toggleAllCheckboxes('age', this)">
                                 <label class="lbl " for="item_age_all">전체&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_1" class="chk" name="age" value="1" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_1">~12&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_2" class="chk" name="age" value="2" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_2">13~18&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_3" class="chk" name="age" value="3" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_3">19~24&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_4" class="chk" name="age" value="4" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_4">25~29&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_5" class="chk" name="age" value="5" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_5">30~34&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_6" class="chk" name="age" value="6" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_6">35~39&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_7" class="chk" name="age" value="7" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_7">40~44&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_8" class="chk" name="age" value="8" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_8">45~49&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_9" class="chk" name="age" value="9" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_9">50~54&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_10" class="chk" name="age" value="10" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_10">55~59&nbsp</label>
                             </span>
-                        <span class="select_chk v1">
+                                <span class="select_chk v1">
                                 <input type="checkbox" id="item_age_11" class="chk" name="age" value="11" onclick="updateAllCheckbox('age', 'item_age_all')">
                                 <label class="lbl " for="item_age_11">60~</label>
                             </span>
-                    </div>
-                </div>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const searchTerm1 = urlParams.get('query1');
-                        const searchTerm2 = urlParams.get('query2');
-                        const searchTerm3 = urlParams.get('query3');
-                        const searchTerm4 = urlParams.get('query4');
-                        const searchTerm5 = urlParams.get('query5');
+                            </div>
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const searchTerm1 = urlParams.get('query1');
+                                const searchTerm2 = urlParams.get('query2');
+                                const searchTerm3 = urlParams.get('query3');
+                                const searchTerm4 = urlParams.get('query4');
+                                const searchTerm5 = urlParams.get('query5');
 
-                        const searchInput1 = document.getElementById('query1');
-                        const searchInput2 = document.getElementById('hidden1');
-                        const searchInput3 = document.getElementById('hidden2');
-                        const searchInput4 = document.getElementById('hidden3');
-                        const searchInput5 = document.getElementById('hidden4');
+                                const searchInput1 = document.getElementById('query1');
+                                const searchInput2 = document.getElementById('hidden1');
+                                const searchInput3 = document.getElementById('hidden2');
+                                const searchInput4 = document.getElementById('hidden3');
+                                const searchInput5 = document.getElementById('hidden4');
 
-                        const startDateInput = document.getElementById('startDate');
-                        const endDateInput = document.getElementById('endDate');
+                                const startDateInput = document.getElementById('startDate');
+                                const endDateInput = document.getElementById('endDate');
 
-                        const selectDayTypeInput = document.getElementById('selectDayType');
-                        const selectBoxMopcInput = document.getElementById('select_box_mopc');
-                        const selectBoxGenderInput = document.getElementById('select_box_gender');
-                        const itemAgeAllCheckbox = document.getElementById('item_age_all');
-                        const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
+                                const selectDayTypeInput = document.getElementById('selectDayType');
+                                const selectBoxMopcInput = document.getElementById('select_box_mopc');
+                                const selectBoxGenderInput = document.getElementById('select_box_gender');
+                                const itemAgeAllCheckbox = document.getElementById('item_age_all');
+                                const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
 
-                        if (searchTerm1) {
-                            searchInput1.value = searchTerm1;
-                        }
-                        if (searchTerm2) {
-                            searchInput2.value = searchTerm2;
-                            searchInput2.type = "text";
-                        }
-                        if (searchTerm3) {
-                            searchInput3.value = searchTerm3;
-                            searchInput3.type = "text";
-                        }
-                        if (searchTerm4) {
-                            searchInput4.value = searchTerm4;
-                            searchInput4.type = "text";
-                        }
-                        if (searchTerm5) {
-                            searchInput5.value = searchTerm5;
-                            searchInput5.type = "text";
-                        }
+                                if (searchTerm1) {
+                                    searchInput1.value = searchTerm1;
+                                }
+                                if (searchTerm2) {
+                                    searchInput2.value = searchTerm2;
+                                    searchInput2.type = "text";
+                                }
+                                if (searchTerm3) {
+                                    searchInput3.value = searchTerm3;
+                                    searchInput3.type = "text";
+                                }
+                                if (searchTerm4) {
+                                    searchInput4.value = searchTerm4;
+                                    searchInput4.type = "text";
+                                }
+                                if (searchTerm5) {
+                                    searchInput5.value = searchTerm5;
+                                    searchInput5.type = "text";
+                                }
 
-                        const startDateParam = urlParams.get('date1');
-                        const endDateParam = urlParams.get('date2');
-                        const selectDayTypeParam = urlParams.get('select_day_week_month');
-                        const selectBoxMopcParam = urlParams.get('device');
-                        const selectBoxGenderParam = urlParams.get('gender');
-                        const ageParams = urlParams.getAll('age');
+                                const startDateParam = urlParams.get('date1');
+                                const endDateParam = urlParams.get('date2');
+                                const selectDayTypeParam = urlParams.get('select_day_week_month');
+                                const selectBoxMopcParam = urlParams.get('device');
+                                const selectBoxGenderParam = urlParams.get('gender');
+                                const ageParams = urlParams.getAll('age');
 
-                        if (startDateParam) {
-                            startDateInput.value = startDateParam;
-                        }
-                        if (endDateParam) {
-                            endDateInput.value = endDateParam;
-                        }
-                        if (selectDayTypeParam) {
-                            selectDayTypeInput.value = selectDayTypeParam;
-                        }
-                        if (selectBoxMopcParam) {
-                            selectBoxMopcInput.value = selectBoxMopcParam;
-                        }
-                        if (selectBoxGenderParam) {
-                            selectBoxGenderInput.value = selectBoxGenderParam;
-                        }
-                        // 연령 항목 설정
-                        if (ageParams.length > 0) {
-                            ageParams.forEach(age => {
-                                const checkbox = document.getElementById(`item_age_${age}`);
-                                if (checkbox) {
-                                    checkbox.checked = true;
+                                if (startDateParam) {
+                                    startDateInput.value = startDateParam;
+                                }
+                                if (endDateParam) {
+                                    endDateInput.value = endDateParam;
+                                }
+                                if (selectDayTypeParam) {
+                                    selectDayTypeInput.value = selectDayTypeParam;
+                                }
+                                if (selectBoxMopcParam) {
+                                    selectBoxMopcInput.value = selectBoxMopcParam;
+                                }
+                                if (selectBoxGenderParam) {
+                                    selectBoxGenderInput.value = selectBoxGenderParam;
+                                }
+                                // 연령 항목 설정
+                                if (ageParams.length > 0) {
+                                    ageParams.forEach(age => {
+                                        const checkbox = document.getElementById(`item_age_${age}`);
+                                        if (checkbox) {
+                                            checkbox.checked = true;
+                                        }
+                                    });
+                                    updateAllCheckbox('age', 'item_age_all');
+                                } else {
+                                    itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
                                 }
                             });
-                            updateAllCheckbox('age', 'item_age_all');
-                        } else {
-                            itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
-                        }
-                    });
-                </script>
-            </div>
-            <br><br>
+                        </script>
+                    </div>
+                    <br><br>
                     <a href="#" class="ca_btn_go _trend_search_detail_query" id="submitLink">
                         <span class="text" >LETO Trends 검색 데이터 조회</span>
                     </a>
@@ -940,89 +940,47 @@
 <!-- 히트맵 캘린더를 추가할 div -->
 <script th:inline="javascript">
     anychart.onDocumentReady(function() {
-        var titles = [[${title}]];
-// 연도 리스트
-        var years = [[${years}]];
-// 값 리스트
-        var value1 = [[${value1}]];
-        var value2 = [[${value2}]];
-        var value3 = [[${value3}]];
-        var value4 = [[${value4}]];
-        var value5 = [[${value5}]];
+        var titles = /*[[${title}]]*/ []; // 열 제목 리스트
+        var years = /*[[${years}]]*/ []; // 연도 리스트
+        var values = [
+            /*[[${value1}]]*/,
+            /*[[${value2}]]*/,
+            /*[[${value3}]]*/,
+            /*[[${value4}]]*/,
+            /*[[${value5}]]*/
+        ];
 
-// 데이터 형식에 맞춰 배열 생성
+        // selectDayType 값 가져오기
+        var selectDayType = document.getElementById('selectDayType').value;
+        console.log("selectDayType:", selectDayType);
+
+        // 데이터 형식에 맞춰 배열 생성
         var data = [];
         let total = titles.length;
-        if (total==5){
-            for (var i = 0; i<titles.length; i++){
-                for (var j = 0; j < years.length; j++) {
-                    if (i==0){
-                        data.push([years[j], titles[i], value5[j]]);
-                    }else if (i==1){
-                        data.push([years[j], titles[i], value4[j]]);
-                    }else if (i==2){
-                        data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==3){
-                        data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==4){
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
+
+        for (var i = 0; i < titles.length; i++) {
+            for (var j = 0; j < years.length; j++) {
+                var dateValue = years[j];
+                console.log("Original dateValue:", dateValue, "Type:", typeof dateValue);
+
+                // timeunit이 "month"인 경우 년도와 월까지만 사용
+                if (/*[[${timeunit}]]*/ "date" === "month" && typeof dateValue === 'string') {
+                    dateValue = dateValue.slice(0, 7);
                 }
-            }
-        }else if (total==4){
-            for (var i = 0; i<titles.length; i++){
-                for (var j = 0; j < years.length; j++) {
-                    if (i==0){
-                        data.push([years[j], titles[i], value4[j]]);
-                    }else if (i==1){
-                        data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==2){
-                        data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==3){
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        }else if (total==3){
-            for (var i = 0; i<titles.length; i++){
-                for (var j = 0; j < years.length; j++) {
-                    if (i==0){
-                        data.push([years[j], titles[i], value3[j]]);
-                    }else if (i==1){
-                        data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==2){
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        }else if (total==2){
-            for (var i = 0; i<titles.length; i++){
-                for (var j = 0; j < years.length; j++) {
-                    if (i==0){
-                        data.push([years[j], titles[i], value2[j]]);
-                    }else if (i==1){
-                        data.push([years[j], titles[i], value1[j]]);
-                    }
-                }
-            }
-        }else if (total==1){
-            for (var i = 0; i<titles.length; i++){
-                for (var j = 0; j < years.length; j++) {
-                    data.push([years[j], titles[i], value1[j]]);
-                }
+                console.log("Adding date:", dateValue, "Title:", titles[i]);
+                // 데이터 배열에 추가
+                data.push([dateValue, titles[i], values[total - i - 1][j]]);
             }
         }
 
-// 데이터 세트 생성
+        // 데이터 세트 생성
         var dataSet = anychart.data.set(data);
 
-// Heatmap 생성
+        // Heatmap 생성
         var chart = anychart.heatMap(dataSet);
 
-// Heatmap 설정
+        // Heatmap 설정
         chart.title("");
-        // chart.xAxis().title("Years");
-        // chart.yAxis().title("Titles");
 
         // create and configure the color scale.
         var customColorScale = anychart.scales.linearColor();
@@ -1031,7 +989,7 @@
         // set the color scale as the color scale of the chart
         chart.colorScale(customColorScale);
 
-// Heatmap 그리기
+        // Heatmap 그리기
         chart.container("container");
         chart.draw();
     });

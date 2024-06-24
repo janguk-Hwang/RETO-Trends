@@ -89,6 +89,8 @@ public class MemberController {
             model.addAttribute("title", titles);
         }
 
+        model.addAttribute("timeunit", timeunit);
+
         String favoriteURL = "";
 
         for (int i = 0; i < memberService.getDbCalFavoriteURL(username).size(); i++) {
