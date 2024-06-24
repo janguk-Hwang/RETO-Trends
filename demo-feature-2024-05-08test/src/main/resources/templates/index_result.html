@@ -549,6 +549,16 @@
                         // 체크박스 초기화
                         const checkboxes = form.querySelectorAll('input[type="checkbox"]');
                         checkboxes.forEach(checkbox => checkbox.checked = false);
+                        updateAllCheckbox('age', 'item_age_all');
+
+                        const itemAgeAllCheckbox1 = document.getElementById('item_age_all');
+                        if (itemAgeAllCheckbox1) {
+                            itemAgeAllCheckbox1.checked = true;
+                        }
+                        const itemAgeAllCheckbox2 = document.getElementById('item_age2_all');
+                        if (itemAgeAllCheckbox2) {
+                            itemAgeAllCheckbox2.checked = true;
+                        }
                         // updateAllCheckbox('age', 'item_age_all');
                         // updateAllCheckbox('age2', 'item_age2_all');
 
@@ -896,6 +906,7 @@
                         if (selectBoxGenderParam2) {
                             selectBoxGenderInput2.value = selectBoxGenderParam2;
                         }
+
                         // 연령 항목 설정
                         if (ageParams.length > 0) {
                             ageParams.forEach(age => {
@@ -905,6 +916,8 @@
                                 }
                             });
                             updateAllCheckbox('age', 'item_age_all');
+                        } else {
+                            itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
                         }
 
                         if (ageParams2.length > 0) {
@@ -915,6 +928,8 @@
                                 }
                             });
                             updateAllCheckbox('age2', 'item_age2_all');
+                        } else {
+                            itemAgeAllCheckbox2.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
                         }
                     });
                 </script>

@@ -221,26 +221,36 @@
         function updateAllCheckbox(group, allCheckboxId) {
             const checkboxes = document.querySelectorAll(`input[name=${group}]`);
             const allCheckbox = document.getElementById(allCheckboxId);
+
             const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-            if (!anyChecked) {
-                allCheckbox.checked = true; // 아무것도 체크되지 않는 경우 전체 체크
+            if (anyChecked) {
+                allCheckbox.checked = false; // 다른 체크박스가 하나라도 체크되어 있으면 전체 체크박스 해제
             } else {
-                allCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+                allCheckbox.checked = true; // 다른 체크박스가 하나도 체크되어 있지 않으면 전체 체크박스 체크
             }
         }
+
 
         function validateCheckboxSelection() {
             // 첫 번째 그룹 'age'에 대한 검증
             const ageCheckboxes = document.querySelectorAll('input[name="age"]');
             const anyAgeChecked = Array.from(ageCheckboxes).some(checkbox => checkbox.checked);
 
+            // 두 번째 그룹 'age2'에 대한 검증
+            const age2Checkboxes = document.querySelectorAll('input[name="age2"]');
+            const anyAge2Checked = Array.from(age2Checkboxes).some(checkbox => checkbox.checked);
+
             // 두 그룹 중 하나라도 선택되지 않은 경우 경고
             if(!anyAgeChecked){
-                alert("비교군 1에서 최소한 하나의 연령을 선택해주세요.")
+                alert("Group A에서 최소한 하나의 연령을 선택해주세요.")
                 return false;
             }
 
+            if(!anyAge2Checked){
+                alert("Group B에서 최소한 하나의 연령을 선택해주세요.")
+                return false;
+            }
             return true;
         }
 
@@ -310,7 +320,18 @@
 
                         // 날짜 입력 초기화
                         const dateInputs = form.querySelectorAll('input[type="date"]');
-                        dateInputs.forEach(input => input.value = '');
+                        dateInputs.forEach(input => {
+                            const today = new Date();
+                            const currentYear = today.getFullYear();
+                            const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+                            const currentDay = String(today.getDate()).padStart(2, '0');
+                            input.value = `${currentYear}-${currentMonth}-${currentDay}`;
+
+                            if (input.id === 'startDate') {
+                                const lastYear = currentYear - 1;
+                                input.value = `${lastYear}-${currentMonth}-${currentDay}`;
+                            }
+                        });
 
                         // 셀렉트 박스 초기화
                         const selectBoxes = form.querySelectorAll('select');
@@ -321,24 +342,12 @@
                         checkboxes.forEach(checkbox => checkbox.checked = false);
                         updateAllCheckbox('age', 'item_age_all');
                         updateAllCheckbox('age2', 'item_age2_all');
-
-                        // 현재 날짜 설정
-                        const today = new Date();
-                        const currentYear = today.getFullYear();
-                        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
-                        const currentDay = String(today.getDate()).padStart(2, '0');
-
-                        // YYYY-MM-DD 형식으로 날짜 설정
-                        const startDateInput = document.getElementById('startDate');
-                        const endDateInput = document.getElementById('endDate');
-
-                        startDateInput.value = `${currentYear}-${currentMonth}-${currentDay}`;
-                        endDateInput.value = `${currentYear}-${currentMonth}-${currentDay}`;
                     }
 
                     // 페이지 로드 시 기본값 설정
                     document.addEventListener('DOMContentLoaded', resetForm);
                 </script>
+
                 <br><br>
                 <script>
                     // 입력란의 값이 변경될 때마다 호출되는 함수
@@ -456,6 +465,15 @@
                         const searchInput4 = document.getElementById('hidden3');
                         const searchInput5 = document.getElementById('hidden4');
 
+                        const startDateInput = document.getElementById('startDate');
+                        const endDateInput = document.getElementById('endDate');
+
+                        const selectDayTypeInput = document.getElementById('selectDayType');
+                        const selectBoxMopcInput = document.getElementById('select_box_mopc');
+                        const selectBoxGenderInput = document.getElementById('select_box_gender');
+                        const itemAgeAllCheckbox = document.getElementById('item_age_all');
+                        const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
+
                         if (searchTerm1) {
                             searchInput1.value = searchTerm1;
                         }
@@ -474,6 +492,41 @@
                         if (searchTerm5) {
                             searchInput5.value = searchTerm5;
                             searchInput5.type = "text";
+                        }
+
+                        const startDateParam = urlParams.get('date1');
+                        const endDateParam = urlParams.get('date2');
+                        const selectDayTypeParam = urlParams.get('select_day_week_month');
+                        const selectBoxMopcParam = urlParams.get('device');
+                        const selectBoxGenderParam = urlParams.get('gender');
+                        const ageParams = urlParams.getAll('age');
+
+                        if (startDateParam) {
+                            startDateInput.value = startDateParam;
+                        }
+                        if (endDateParam) {
+                            endDateInput.value = endDateParam;
+                        }
+                        if (selectDayTypeParam) {
+                            selectDayTypeInput.value = selectDayTypeParam;
+                        }
+                        if (selectBoxMopcParam) {
+                            selectBoxMopcInput.value = selectBoxMopcParam;
+                        }
+                        if (selectBoxGenderParam) {
+                            selectBoxGenderInput.value = selectBoxGenderParam;
+                        }
+                        // 연령 항목 설정
+                        if (ageParams.length > 0) {
+                            ageParams.forEach(age => {
+                                const checkbox = document.getElementById(`item_age_${age}`);
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                            updateAllCheckbox('age', 'item_age_all');
+                        } else {
+                            itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
                         }
                     });
 
@@ -597,21 +650,12 @@
 
                         const startDateInput = document.getElementById('startDate');
                         const endDateInput = document.getElementById('endDate');
-                        const startDateInput2 = document.getElementById('startDate2');
-                        const endDateInput2 = document.getElementById('endDate2');
 
                         const selectDayTypeInput = document.getElementById('selectDayType');
                         const selectBoxMopcInput = document.getElementById('select_box_mopc');
                         const selectBoxGenderInput = document.getElementById('select_box_gender');
                         const itemAgeAllCheckbox = document.getElementById('item_age_all');
                         const itemAgeCheckboxes = document.querySelectorAll('input[name="age"]');
-
-                        const selectDayTypeInput2 = document.getElementById('selectDayType2');
-                        const selectBoxMopcInput2 = document.getElementById('select_box_mopc2');
-                        const selectBoxGenderInput2 = document.getElementById('select_box_gender2');
-                        const itemAgeAllCheckbox2 = document.getElementById('item_age2_all');
-                        const itemAgeCheckboxes2 = document.querySelectorAll('input[name="age2"]');
-
 
                         if (searchTerm1) {
                             searchInput1.value = searchTerm1;
@@ -640,42 +684,20 @@
                         const selectBoxGenderParam = urlParams.get('gender');
                         const ageParams = urlParams.getAll('age');
 
-                        const startDateParam2 = urlParams.get('date3');
-                        const endDateParam2 = urlParams.get('date4');
-                        const selectDayTypeParam2 = urlParams.get('select_day_week_month2');
-                        const selectBoxMopcParam2 = urlParams.get('device2');
-                        const selectBoxGenderParam2 = urlParams.get('gender2');
-                        const ageParams2 = urlParams.getAll('age2');
-
                         if (startDateParam) {
                             startDateInput.value = startDateParam;
-                        }
-                        if (startDateParam2) {
-                            startDateInput2.value = startDateParam2;
                         }
                         if (endDateParam) {
                             endDateInput.value = endDateParam;
                         }
-                        if (endDateParam2) {
-                            endDateInput2.value = endDateParam2;
-                        }
                         if (selectDayTypeParam) {
                             selectDayTypeInput.value = selectDayTypeParam;
-                        }
-                        if (selectDayTypeParam2) {
-                            selectDayTypeInput2.value = selectDayTypeParam2;
                         }
                         if (selectBoxMopcParam) {
                             selectBoxMopcInput.value = selectBoxMopcParam;
                         }
-                        if (selectBoxMopcParam2) {
-                            selectBoxMopcInput2.value = selectBoxMopcParam2;
-                        }
                         if (selectBoxGenderParam) {
                             selectBoxGenderInput.value = selectBoxGenderParam;
-                        }
-                        if (selectBoxGenderParam2) {
-                            selectBoxGenderInput2.value = selectBoxGenderParam2;
                         }
                         // 연령 항목 설정
                         if (ageParams.length > 0) {
@@ -686,16 +708,8 @@
                                 }
                             });
                             updateAllCheckbox('age', 'item_age_all');
-                        }
-
-                        if (ageParams2.length > 0) {
-                            ageParams2.forEach(age => {
-                                const checkbox2 = document.getElementById(`item_age2_${age}`);
-                                if (checkbox2) {
-                                    checkbox2.checked = true;
-                                }
-                            });
-                            updateAllCheckbox('age2', 'item_age2_all');
+                        } else {
+                            itemAgeAllCheckbox.checked = true; // 전체 체크박스가 기본으로 체크되도록 설정
                         }
                     });
                 </script>
@@ -719,7 +733,6 @@
                             }
                             return true;
                         }
-
 
                         document.getElementById('submitLink').addEventListener('click', function() {
                             if (validateCheckboxSelection()) {
