@@ -1182,7 +1182,7 @@
         </form>
         <br>
         <div class="item3">
-            <form action="/favorite_url" onsubmit="return clickAlert()" method="get">
+            <form onsubmit="return clickAlert()" method="get">
                 <div>
                     <input type="hidden" name="url" id="urlInput" value="">
                     <script th:inline="javascript">
@@ -1200,6 +1200,8 @@
                             }else if ([[${isTrueAll}]]) {
                                 alert("즐겨찾기는 5개까지 추가가능합니다.")
                                 return false;
+                            }else {
+                                alert("즐겨찾기에 추가 되었습니다.");
                             }
                         }
                     </script>
@@ -1394,16 +1396,16 @@
                         <a class="active" href="/">
                             Home
                         </a>
-                        <a class="" href="about">
-                            About
-                        </a>
-                        <a class="" href="service">
+                        <a class="" href="service_success">
                             Analysis
                         </a>
-                        <a class="" href="why">
-                            Why Us
+                        <a class="" href="about_success">
+                            About
                         </a>
-                        <a class="" href="team">
+                        <a class="" href="manual_success">
+                            Manual
+                        </a>
+                        <a class="" href="team_success">
                             Team
                         </a>
                     </div>
